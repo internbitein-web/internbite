@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>InternBite Quiz System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    
+    <style>
+                
+        #certificate-hidden-wrapper {
+            position: fixed;
+            top: -10000px;
+            left: -10000px;
+            z-index: -1;
+        }
+
+        .cert-container {
+            width: 842px;   
+            height: 595px;  
+            position: relative;
+            background: #0A0F1E;
+            font-family: 'Outfit', sans-serif;
+            text-align: center;
+            color: #F8F7F2;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        
+        .cert-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-8deg);
+            font-size: 150px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            letter-spacing: 6px;
+            color: rgba(255, 255, 255, 0.025);
+            z-index: 0;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+      
+        .cert-corner {
+            position: absolute;
+            width: 224px;
+            height: 224px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .cert-corner-tl { top: 0; left: 0; }
+        .cert-corner-br { bottom: 0; right: 0; transform: rotate(180deg); }
+        .cert-corner .cc-a {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #FF5C28;
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+        }
+        .cert-corner .cc-b {
+            position: absolute;
+            top: 4px; left: 4px;
+            width: 100%; height: 100%;
+            background: #0A0F1E;
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+        }
+        .cert-corner .cc-c {
+            position: absolute;
+            top: 0; left: 0;
+            width: 58%; height: 58%;
+            background: linear-gradient(135deg, rgba(255, 92, 40, 0.35) 0%, transparent 75%);
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+        }
+
+        
+        .cert-frame {
+            position: absolute;
+            top: 34px; left: 34px; right: 34px; bottom: 34px;
+            border: 1.5px solid rgba(255, 92, 40, 0.55);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .cert-inner {
+            position: relative;
+            z-index: 5;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 48px 68px 34px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Logo lockup */
+        .cert-logo-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .cert-logo-img {
+            height: 30px !important;
+            max-height: 30px !important;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+        .cert-logo-text {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 23px;
+            letter-spacing: -0.3px;
+            color: #F8F7F2;
+        }
+        .cert-logo-text em { color: #FF5C28; font-style: normal; }
+
+        .cert-title {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 52px;
+            letter-spacing: 9px;
+            color: #F8F7F2;
+            margin: 0 0 8px;
+            line-height: 1;
+        }
+
+        .cert-subtitle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            font-size: 12.5px;
+            letter-spacing: 6px;
+            font-weight: 700;
+            color: #FF5C28;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .cert-subtitle .cs-line {
+            width: 68px; height: 1px;
+            background: rgba(255, 92, 40, 0.5);
+            display: block;
+        }
+
+        .cert-lead {
+            font-size: 15px;
+            color: #8B93A8;
+            margin: 0 0 6px;
+        }
+
+        .cert-name {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 42px;
+            color: #FF5C28;
+            margin: 2px 0 10px;
+            text-transform: capitalize;
+            max-width: 660px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cert-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .cert-divider .cd-line { width: 120px; height: 1px; background: rgba(200, 169, 110, 0.4); }
+        .cert-divider .cd-dot { color: #C8A96E; font-size: 11px; }
+
+        .cert-body {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #D7DAE3;
+            margin: 0;
+        }
+        .cert-course {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            color: #FF5C28;
+            font-size: 19px;
+        }
+        .cert-duration {
+            font-size: 16px;
+            color: #D7DAE3;
+            margin: 6px 0 16px;
+        }
+        .cert-duration b { color: #F8F7F2; }
+
+        .cert-desc {
+            font-size: 12.5px;
+            color: #8B93A8;
+            max-width: 600px;
+            line-height: 1.7;
+            margin: 0 auto;
+        }
+
+       
+        .cert-footer {
+            margin-top: auto;
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding-top: 18px;
+        }
+        .cert-footer-left { text-align: left; }
+        .cert-label-title {
+            display: block;
+            color: #8B93A8;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cert-issue {
+            font-size: 12.5px;
+            color: #F8F7F2;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .cert-reg-badge {
+            background: rgba(200, 169, 110, 0.1);
+            border: 1px solid rgba(200, 169, 110, 0.35);
+            color: #C8A96E;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 8px 20px;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+
+        .cert-footer-right { text-align: center; width: 190px; }
+        .cert-sign {
+            font-family: 'Great Vibes', cursive;
+            font-size: 24px; 
+            color: #F8F7F2;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .cert-sign-line { width: 80%; height: 1px; background: rgba(255, 255, 255, 0.35); margin: 0 auto 6px; } /* LINE CHOTI KI GAYI HAI */
+        .cert-signer-name {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #F8F7F2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .cert-signer-title {
+            font-size: 10px;
+            color: #8B93A8;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 2px;
+        }
+</style>
+    
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="app-shell">
+        <header class="top-bar">
+            <div class="brand">
+                <div class="brand-text">
+                    <a href="#" class="logo">InternBite<em>/</em></a>
+                    <p>Assessment Portal</p>
+                </div>
+            </div>
+            <div class="user-indicator" id="user-indicator">
+                <span id="user-name-label">Guest</span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section id="entry-section" class="view active">
+                <div class="card entry-card">
+                    <p class="section-eyebrow">Welcome to InternBite</p>
+                    <h2>Start Your Assessment</h2>
+                    <p class="subtitle">Enter your registered details to begin the quiz.</p>
+                    <form id="entry-form" class="form">
+                        <div class="form-group">
+                            <label for="student-name">Student Name</label>
+                            <input type="text" id="student-name" required placeholder="Enter your full name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="student-email">Email Address</label>
+                            <input type="email" id="student-email" required placeholder="Enter your email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="course-enrolled">Course Enrolled</label>
+                            <select id="course-enrolled" required>
+                                <option value="">Select your course</option>
+                                <option value="C Programming">C Programming</option>
+                                <option value="C++">C++</option>
+                                <option value="Python">Python</option>
+                                <option value="Web Development (HTML/CSS/JS)">Web Development (HTML/CSS/JS)</option>
+                                <option value="Data Science with Python">Data Science with Python</option>
+                                <option value="Machine Learning & AI">Machine Learning & AI</option>
+                                <option value="Full Stack Web Dev (MERN)">Full Stack Web Dev (MERN)</option>
+                                <option value="Java">Java</option>
+                                <option value="Data Structures & Algorithms (DSA)">Data Structures & Algorithms (DSA)</option>
+                                <option value="Flutter">Flutter</option>
+                                <option value="Cloud Computing with AWS">Cloud Computing with AWS</option>
+                                <option value="Data Analyst">Data Analyst</option>
+                                <option value="Power BI">Power BI</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary full-width">Continue to Courses →</button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="dashboard-section" class="view">
+                <div class="section-header">
+                    <div>
+                        <p class="section-eyebrow">Dashboard</p>
+                        <h2>Select Your Course</h2>
+                        <p class="subtitle">Choose a course below to start your graded assessment.</p>
+                    </div>
+                    <button id="change-student-btn" class="btn btn-ghost">Log out</button>
+                </div>
+                <div id="course-grid" class="course-grid"></div>
+            </section>
+
+            <section id="quiz-section" class="view">
+                <div class="quiz-header">
+                    <div>
+                        <p class="section-eyebrow" id="quiz-student-label"></p>
+                        <h2 id="quiz-course-title">Course Quiz</h2>
+                    </div>
+                    <div class="timer-pill">⏱ Time Left: <span id="timer-display">30:00</span></div>
+                </div>
+                <div class="card quiz-card">
+                    <form id="quiz-form">
+                        <div id="questions-container" class="questions-container"></div>
+                        <div class="quiz-actions">
+                            <button type="button" class="btn btn-ghost" id="cancel-quiz-btn">Cancel & Go Back</button>
+                            <button type="submit" class="btn btn-primary">Submit Test</button>
+                        </div>
+                        <p class="note">Note: Test will auto-submit when the 30-minute timer ends.</p>
+                    </form>
+                </div>
+            </section>
+
+            <section id="result-section" class="view">
+                <div class="card result-card">
+                    <p class="section-eyebrow">Assessment Complete</p>
+                    <h2>Test Result</h2>
+                    <p id="result-name"></p>
+                    <p id="result-course"></p>
+                    <p id="result-score" class="result-score"></p>
+                    <p id="result-message" class="result-message"></p>
+                    <p id="result-attempt" class="result-attempt"></p>
+                    <div class="result-actions">
+                        <button id="download-cert-btn" class="btn btn-primary hidden" style="margin-bottom: 10px;">
+                            Download Certificate
+                        </button>
+                        <button id="back-to-dashboard-btn" class="btn btn-ghost">Back to Course Dashboard</button>
+                    </div>
+                    <p class="note small">Your result has been sent to the InternBite LMS sheet.</p>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="footer">
+            <div class="wrap">
+                <div class="footer-bottom">
+                    <span>© <span id="year"></span> InternBite Assessment Portal. All rights reserved.</span>
+                    <span class="msme-chip">MSME Registered</span>
+                    <span>internbite.in</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+         
+    <div id="certificate-hidden-wrapper">
+        <div class="cert-container" id="certificate-element">
+            <div class="cert-watermark">InternBite</div>
+
+            <div class="cert-corner cert-corner-tl">
+                <div class="cc-a"></div>
+                <div class="cc-b"></div>
+                <div class="cc-c"></div>
+            </div>
+            <div class="cert-corner cert-corner-br">
+                <div class="cc-a"></div>
+                <div class="cc-b"></div>
+                <div class="cc-c"></div>
+            </div>
+
+            <div class="cert-frame"></div>
+
+            <div class="cert-inner">
+                <div class="cert-logo-row">
+                    <span class="cert-logo-text">InternBite<em>/</em></span>
+                </div>
+
+                <h1 class="cert-title">CERTIFICATE</h1>
+                <div class="cert-subtitle"><span class="cs-line"></span>OF INTERNSHIP<span class="cs-line"></span></div>
+
+                <p class="cert-lead">This is to certify that</p>
+                <h2 class="cert-name" id="cert-student-name">Student Name</h2>
+                <div class="cert-divider"><span class="cd-line"></span><span class="cd-dot">&#10022;</span><span class="cd-line"></span></div>
+
+                <p class="cert-body">
+                    has successfully completed the internship program in<br>
+                    <span class="cert-course" id="cert-course-name">Web Development</span>
+                </p>
+                <p class="cert-duration">for a duration of <b>6-Weeks</b> at <b>INTERNBITE</b></p>
+
+                <p class="cert-desc">During this internship, the intern demonstrated dedication, enthusiasm, and a strong commitment to learning and contributing. We wish them all the best for their future endeavors.</p>
+
+                
+                <div class="cert-footer">
+                    <div class="cert-footer-left">
+                        <div class="cert-issue"><span class="cert-label-title">Issue Date</span><span id="cert-issue-date">DD Month YYYY</span></div>
+                    </div>
+
+                    <div class="cert-footer-center">
+                        <div class="cert-reg-badge">AICTE &amp; MSME Reg.</div>
+                    </div>
+
+                    <div class="cert-footer-right">
+                        <div class="cert-sign">Hsingh</div>
+                        <div class="cert-sign-line"></div>
+                        <div class="cert-signer-name">Harpinder Singh</div>
+                        <div class="cert-signer-title">Founder &amp; Program Head</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function checkPassingCondition() {
+                const scoreElement = document.getElementById('result-score');
+                const scoreText = scoreElement.textContent || "";
+                const match = scoreText.match(/(\d+)/);
+                let score = 0;
+                if (match) {
+                    score = parseInt(match[0]);
+                }
+                return score >= 15;
+            }
+
+            const resultSection = document.getElementById('result-section');
+            const certBtn = document.getElementById('download-cert-btn');
+
+            function handleResultPageShown() {
+                if (checkPassingCondition()) {
+                    certBtn.classList.remove('hidden');
+                } else {
+                    certBtn.classList.add('hidden');
+                }
+            }
+
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === "attributes" && mutation.attributeName === "class") {
+                        if (resultSection.classList.contains('active') || !resultSection.classList.contains('hidden')) {
+                            setTimeout(handleResultPageShown, 100);
+                        }
+                    }
+                });
+            });
+            observer.observe(resultSection, { attributes: true });
+
+            certBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const rawName = document.getElementById('result-name').textContent || "";
+                const rawCourse = document.getElementById('result-course').textContent || "";
+
+                let cleanName = rawName.replace(/Student:/gi, '').replace(/Name:/gi, '').trim();
+                let cleanCourse = rawCourse.replace(/Course:/gi, '').trim();
+
+                if (!cleanName) cleanName = "Student Name";
+
+                const nameEl = document.getElementById('cert-student-name');
+                nameEl.textContent = cleanName;
+
+                
+                if (cleanName.length > 28) {
+                    nameEl.style.fontSize = '26px';
+                } else if (cleanName.length > 20) {
+                    nameEl.style.fontSize = '32px';
+                } else {
+                    nameEl.style.fontSize = '42px';
+                }
+
+                document.getElementById('cert-course-name').textContent = cleanCourse;
+
+             
+                const today = new Date();
+                const formattedDate = today.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                document.getElementById('cert-issue-date').textContent = formattedDate;
+
+                const element = document.getElementById('certificate-element');
+                const opt = {
+                    margin: 0,
+                    filename: `InternBite_Certificate_${cleanName.replace(/\s+/g, '_')}.pdf`,
+                    image: { type: 'jpeg', quality: 1.0 },
+                    html2canvas: { scale: 2, useCORS: true, scrollY: 0, allowTaint: true },
+                    jsPDF: { unit: 'px', format: [842, 595], orientation: 'landscape' }
+                };
+
+                const originalText = certBtn.innerHTML;
+                certBtn.innerHTML = 'Processing...';
+                certBtn.disabled = true;
+
+                html2pdf().set(opt).from(element).save().then(() => {
+                    certBtn.innerHTML = originalText;
+                    certBtn.disabled = false;
+                }).catch(err => {
+                    console.error("PDF Error:", err);
+                    alert("Error: Please check internet connection.");
+                    certBtn.innerHTML = originalText;
+                    certBtn.disabled = false;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
