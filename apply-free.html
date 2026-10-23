@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply Free - InternBite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+ 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  :root {
+    --navy: #0A0F1E; --card-bg: #141B2D; --off-white: #F8F7F2;
+    --muted: #8B93A8; --orange: #FF5C28; --border: rgba(255,255,255,0.07);
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-body); background: var(--navy); color: var(--off-white); line-height: 1.6; padding-bottom: 50px;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+  nav {
+    padding: 20px 4%; border-bottom: 1px solid var(--border);
+    background: rgba(10, 15, 30, 0.8); backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; text-decoration: none; color: var(--off-white); }
+  .logo em { color: var(--orange); font-style: normal; }
+  .btn-back { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .btn-back:hover { color: var(--off-white); }
+
+  .apply-container { max-width: 800px; margin: 50px auto 0; padding: 0 4%; position: relative; z-index: 1; }
+  .form-header { text-align: center; margin-bottom: 40px; }
+  .form-header h1 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 10px; }
+  .form-header h1 span { color: var(--orange); }
+  .form-header p { color: var(--muted); font-size: 1rem; }
+
+  .custom-form {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 16px; padding: 40px; box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+    transition: opacity 0.3s ease;
+  }
+  .form-group { margin-bottom: 24px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .form-label { display: block; font-size: 0.88rem; font-weight: 600; color: var(--off-white); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-label span { color: var(--orange); }
+  
+  .form-input {
+    width: 100%; padding: 14px 16px; background: var(--navy); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: #fff; font-family: var(--font-body); font-size: 0.95rem; outline: none; transition: 0.2s;
+  }
+  .form-input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,92,40,0.1); }
+  
+  .form-select {
+    width: 100%; padding: 14px 16px; background: var(--navy); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: #fff; font-family: var(--font-body); font-size: 0.95rem; outline: none; 
+    transition: 0.2s; appearance: none; cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B93A8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 16px center; background-size: 16px;
+  }
+  .form-select:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,92,40,0.1); }
+  .form-select option { background: var(--card-bg); color: #fff; padding: 10px; }
+  
+  .btn-submit {
+    width: 100%; padding: 16px; margin-top: 30px; background: var(--orange); color: #fff;
+    border: none; border-radius: 10px; font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255,92,40,0.2); }
+  
+  /* SUCCESS MESSAGE STYLES */
+  .success-message {
+    display: none; 
+    background: var(--card-bg); border: 1px solid var(--orange);
+    border-radius: 16px; padding: 50px 30px; text-align: center;
+    box-shadow: 0 24px 60px rgba(255,92,40,0.15);
+  }
+  .success-icon {
+    width: 80px; height: 80px; background: rgba(255,92,40,0.1);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px; color: var(--orange);
+  }
+  .success-message h2 { font-family: var(--font-display); font-size: 2.2rem; margin-bottom: 15px; }
+  .success-message p { color: var(--muted); font-size: 1rem; margin-bottom: 30px; line-height: 1.7; }
+  .success-message p strong { color: var(--off-white); }
+  
+  .success-actions {
+    display: flex; flex-direction: column; gap: 15px; align-items: center; justify-content: center;
+  }
+  .btn-whatsapp {
+    display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px;
+    background: #25D366; color: #fff; border-radius: 10px; text-decoration: none;
+    font-weight: 700; font-family: var(--font-display); font-size: 1.05rem; transition: 0.2s;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.2); width: 100%; justify-content: center;
+  }
+  .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35); color: #fff; }
+  .btn-whatsapp i { font-size: 1.3rem; }
+
+  .btn-home {
+    display: inline-block; padding: 14px 30px; background: transparent; border: 1px solid var(--border);
+    color: var(--muted); border-radius: 8px; text-decoration: none; font-weight: 600; transition: 0.2s; width: 100%;
+  }
+  .btn-home:hover { border-color: var(--off-white); color: var(--off-white); }
+
+  @media (min-width: 640px) {
+    .success-actions { flex-direction: row; }
+    .btn-whatsapp { width: auto; }
+    .btn-home { width: auto; }
+  }
+  @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .custom-form, .success-message { padding: 24px; } }
+</style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">InternBite<em>/</em></a>
+    <a href="benefits.html" class="btn-back">&larr; Back to Plans</a>
+  </nav>
+
+  <div class="apply-container">
+    <div class="form-header" id="headerText">
+      <h1>Apply for <span>Free Internship</span></h1>
+      <p>Fill out the form below to secure your spot. Make sure all details are accurate.</p>
+    </div>
+
+    
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleIframeLoad()"></iframe>
+ 
+    <form id="applicationForm" class="custom-form" action="https://docs.google.com/forms/d/e/1FAIpQLSfomxtCOdGfWZK1i79b88ztvJtX_pRE59ww0EnXC-Fof7opCQ/formResponse" method="POST" target="hidden_iframe" onsubmit="handleFormSubmit()">
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">NAME <span>*</span></label>
+          <input type="text" name="entry.568717816" class="form-input" placeholder="Your Full Name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">EMAIL <span>*</span></label>
+          <input type="email" name="entry.73953570" class="form-input" placeholder="your@email.com" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">PHONE NUMBER <span>*</span></label>
+          <input type="tel" name="entry.1712721599" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">EDUCATION QULIFICATION <span>*</span></label>
+          <input type="text" name="entry.2138190376" class="form-input" placeholder="e.g. B.Tech 3rd Year" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">COLLEGE NAME <span>*</span></label>
+          <input type="text" name="entry.134205885" class="form-input" placeholder="Enter your full college name" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">WHICH POSITION(S) ARE YOU INTERESTED IN? <span>*</span></label>
+          <select name="entry.934829590" class="form-select" required>
+            <option value="" disabled selected>Select a domain</option>
+            <option value="C Programming">C Programming</option>
+            <option value="C++">C++</option>
+            <option value="Python">Python</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Data Science with Python">Data Science with Python</option>
+            <option value="Machine Learning & AI">Machine Learning & AI</option>
+            <option value="Full Stack Web Development (MERN)">Full Stack Web Development (MERN)</option>
+            <option value="Java Programming">Java Programming</option>
+            <option value="Data Structures & Algorithms (DSA)">Data Structures & Algorithms (DSA)</option>
+            <option value="Mobile App Development (Flutter)">Mobile App Development (Flutter)</option>
+            <option value="Cloud Computing with AWS">Cloud Computing with AWS</option>
+            <option value="Data Analyst">Data Analyst</option>
+            <option value="Power BI">Power BI</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn-submit">Submit Application</button>
+    </form>
+
+    
+    <div id="successMessage" class="success-message">
+      <div class="success-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h2>Application Submitted!</h2>
+      <p>Your details have been successfully recorded. <br><strong>Important:</strong> Please join our official WhatsApp group for further updates, placement support, and internship announcements.</p>
+      
+      <div class="success-actions">
+         
+        <a href="https://chat.whatsapp.com/F8b4yalbgUo5K3VOUtTix3" target="_blank" class="btn-whatsapp">
+          <i class="fab fa-whatsapp"></i> Join WhatsApp Group
+        </a>
+        <a href="index.html" class="btn-home">Return to Home</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let isSubmitted = false;
+
+    function handleFormSubmit() {
+      isSubmitted = true;
+      let btn = document.getElementById('submitBtn');
+      btn.innerText = 'Submitting...';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+    }
+
+    function handleIframeLoad() {
+      if (isSubmitted) {
+        document.getElementById('applicationForm').style.display = 'none';
+        document.getElementById('headerText').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+</html>

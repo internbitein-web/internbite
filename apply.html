@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply Premium - InternBite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- FontAwesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+  :root {
+    --navy: #0A0F1E; --card-bg: #141B2D; --off-white: #F8F7F2;
+    --muted: #8B93A8; --border: rgba(255,255,255,0.07);
+    /* Original InternBite Theme Colors */
+    --orange: #FF5C28; 
+    --orange-gradient: linear-gradient(135deg, #FF5C28 0%, #FF9A6C 100%);
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-body); background: var(--navy); color: var(--off-white); line-height: 1.6; padding-bottom: 50px;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+  nav {
+    padding: 15px 4%; border-bottom: 1px solid var(--border);
+    background: rgba(10, 15, 30, 0.8); backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center;
+  }
+  .logo { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; text-decoration: none; color: var(--off-white); }
+  .logo em { color: var(--orange); font-style: normal; }
+  .btn-back { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
+  .btn-back:hover { color: var(--off-white); }
+
+  .apply-container { max-width: 800px; margin: 30px auto 0; padding: 0 4%; position: relative; z-index: 1; }
+  .form-header { text-align: center; margin-bottom: 30px; }
+  .form-header h1 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 5px; }
+  .form-header h1 span { 
+    background: var(--orange-gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .form-header p { color: var(--muted); font-size: 0.95rem; }
+
+  .custom-form {
+    background: var(--card-bg); border: 1px solid var(--border); border-top: 3px solid var(--orange);
+    border-radius: 16px; padding: 30px 40px; box-shadow: 0 24px 60px rgba(0,0,0,0.3); transition: opacity 0.3s ease;
+  }
+  .form-group { margin-bottom: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--off-white); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-label span { color: var(--orange); }
+  
+  .form-input {
+    width: 100%; padding: 12px 16px; background: var(--navy); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: #fff; font-family: var(--font-body); font-size: 0.9rem; outline: none; transition: 0.2s;
+  }
+  .form-input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,92,40,0.15); }
+  
+  .form-select {
+    width: 100%; padding: 12px 16px; background: var(--navy); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; color: #fff; font-family: var(--font-body); font-size: 0.9rem; outline: none; 
+    transition: 0.2s; appearance: none; cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B93A8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 16px center; background-size: 16px;
+  }
+  .form-select:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,92,40,0.15); }
+  .form-select option { background: var(--card-bg); color: #fff; padding: 10px; }
+  
+  .btn-submit {
+    width: 100%; padding: 14px; margin-top: 15px; background: var(--orange-gradient); color: #fff;
+    border: none; border-radius: 10px; font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(255,92,40,0.25); }
+  
+  /* ================================================= */
+  /* PAYMENT/SUCCESS MESSAGE STYLES (COMPACT & RESPONSIVE) */
+  /* ================================================= */
+  
+  .success-message {
+    display: none; background: var(--card-bg); border: 1px solid var(--orange);
+    border-radius: 16px; padding: 35px 30px; text-align: center; box-shadow: 0 24px 60px rgba(255,92,40,0.15);
+  }
+  .success-message h2 { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 8px; color: #fff; }
+  .success-message p { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; max-width: 600px; margin-inline: auto;}
+  
+  /* FLEX LAYOUT FOR PC (Side-by-Side) */
+  .payment-layout {
+    display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 30px; margin-bottom: 20px;
+  }
+  
+  /* QR Code Box */
+  .qr-box {
+    background: #fff; padding: 10px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); flex-shrink: 0;
+  }
+  .qr-box img { width: 160px; height: 160px; object-fit: contain; display: block; }
+  
+  /* UTR Section */
+  .utr-box {
+    background: rgba(255, 92, 40, 0.05); border: 1px dashed rgba(255, 92, 40, 0.3);
+    padding: 20px; border-radius: 12px; flex: 1; max-width: 380px; text-align: left;
+  }
+  .utr-box label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--off-white); }
+  .utr-box input {
+    width: 100%; padding: 12px 14px; background: var(--navy); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; color: #fff; font-family: var(--font-body); font-size: 0.9rem; outline: none; margin-bottom: 12px;
+  }
+  .utr-box input:focus { border-color: var(--orange); }
+  .btn-done {
+    width: 100%; padding: 12px; background: var(--orange-gradient); color: #fff;
+    border: none; border-radius: 8px; font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: 0.2s;
+  }
+  .btn-done:hover { opacity: 0.9; transform: translateY(-2px); }
+  #utrError { color: #FF5F57; font-size: 0.8rem; display: none; margin-top: -5px; margin-bottom: 10px; }
+
+  /* WhatsApp Action (Hidden Initially) */
+  .success-actions { display: none; flex-direction: column; gap: 10px; align-items: center; justify-content: center; margin-top: 15px;}
+  .btn-whatsapp {
+    display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px;
+    background: #25D366; color: #fff; border-radius: 10px; text-decoration: none;
+    font-weight: 700; font-family: var(--font-display); font-size: 1rem; transition: 0.2s;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.2); width: 100%; justify-content: center;
+  }
+  .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35); color: #fff; }
+
+  /* Responsive Media Queries */
+  @media (min-width: 640px) { .btn-whatsapp { width: auto; } }
+  @media (max-width: 640px) { 
+    .form-row { grid-template-columns: 1fr; } 
+    .custom-form, .success-message { padding: 24px 20px; } 
+    /* Stack QR and UTR on mobile */
+    .payment-layout { flex-direction: column; gap: 20px; }
+    .utr-box { max-width: 100%; width: 100%; }
+    .qr-box img { width: 180px; height: 180px; } /* Slightly bigger QR on phone for easy scan */
+  }
+</style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="logo">InternBite<em>/</em></a>
+    <a href="benefits.html" class="btn-back">&larr; Back to Plans</a>
+  </nav>
+
+  <div class="apply-container">
+    <div class="form-header" id="headerText">
+      <h1>Apply for <span>Premium Internship</span></h1>
+      <p>Fill out the form below to initiate your application. Next step: Payment.</p>
+    </div>
+
+    <!-- HIDDEN IFRAME TRICK -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleIframeLoad()"></iframe>
+
+    <!-- FORM SECTION -->
+    <form id="applicationForm" class="custom-form" action="https://docs.google.com/forms/d/e/1FAIpQLSc7I262kr1bgpkR5CN0WCRbnT7flgfCJqR18F6JPligUmiDCw/formResponse" method="POST" target="hidden_iframe" onsubmit="handleFormSubmit()">
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">NAME <span>*</span></label>
+          <input type="text" name="entry.1691760153" class="form-input" placeholder="Your Full Name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">EMAIL <span>*</span></label>
+          <input type="email" name="entry.939224560" class="form-input" placeholder="your@email.com" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">PHONE NUMBER <span>*</span></label>
+          <input type="tel" name="entry.1501523739" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">EDUCATION QULIFICATION <span>*</span></label>
+          <input type="text" name="entry.1689416899" class="form-input" placeholder="e.g. B.Tech 3rd Year" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">COLLEGE NAME <span>*</span></label>
+          <input type="text" name="entry.1315605767" class="form-input" placeholder="Enter your full college name" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">WHICH POSITION(S) ARE YOU INTERESTED IN? <span>*</span></label>
+          <select name="entry.1644538358" class="form-select" required>
+            <option value="" disabled selected>Select a domain</option>
+            <option value="C Programming">C Programming</option>
+            <option value="C++">C++</option>
+            <option value="Python">Python</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Data Science with Python">Data Science with Python</option>
+            <option value="Machine Learning & AI">Machine Learning & AI</option>
+            <option value="Full Stack Web Development (MERN)">Full Stack Web Development (MERN)</option>
+            <option value="Java Programming">Java Programming</option>
+            <option value="Data Structures & Algorithms (DSA)">Data Structures & Algorithms (DSA)</option>
+            <option value="Mobile App Development (Flutter)">Mobile App Development (Flutter)</option>
+            <option value="Cloud Computing with AWS">Cloud Computing with AWS</option>
+            <option value="Data Analyst">Data Analyst</option>
+            <option value="Power BI">Power BI</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn-submit">Proceed to Payment &rarr;</button>
+    </form>
+
+    <!-- PAYMENT & UTR MESSAGE SECTION (Responsive Side-by-Side on PC) -->
+    <div id="successMessage" class="success-message">
+      <h2>Almost Done! Complete Your Payment</h2>
+      <p>Scan the QR code using Google Pay, PhonePe, or Paytm to pay <strong style="color: var(--orange);">₹139</strong>. <br><strong>After paying, enter your UTR number to reveal the WhatsApp link.</strong></p>
+      
+      <div class="payment-layout">
+        <!-- QR BOX (Left side on PC) -->
+        <div class="qr-box">
+           
+          <img src="lms/project-root/assets/Screenshot 2026-06-22 100326.png" alt="Scan to Pay">
+        </div>
+        
+         
+        <div class="utr-box" id="utrBox">
+          <label>Enter 12-Digit UTR / Reference Number</label>
+          <input type="text" id="utrInput" placeholder="e.g. 312345678901" maxlength="14">
+          <p id="utrError">Please enter a valid UTR number (at least 8 digits).</p>
+          <button type="button" class="btn-done" onclick="verifyUTR()">Done & Verify Payment</button>
+        </div>
+      </div>
+
+      
+      <div class="success-actions" id="whatsappActions">
+        <h3 style="color: #2ECC71; font-family: var(--font-display); margin-bottom: 5px; font-size: 1.2rem;">Payment Submitted!</h3>
+        <p style="margin-bottom: 12px; font-size: 0.9rem;">Please join the official WhatsApp group below to connect with mentors.</p>
+        <a href="https://chat.whatsapp.com/IJQIzdIQfuiLopnwtSMYMp" target="_blank" class="btn-whatsapp">
+          <i class="fab fa-whatsapp"></i> Join Premium WhatsApp Group
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let isSubmitted = false;
+
+     
+    function handleFormSubmit() {
+      isSubmitted = true;
+      let btn = document.getElementById('submitBtn');
+      btn.innerText = 'Processing...';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+    }
+
+     
+    function handleIframeLoad() {
+      if (isSubmitted) {
+        document.getElementById('applicationForm').style.display = 'none';
+        document.getElementById('headerText').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    
+    function verifyUTR() {
+      const utrValue = document.getElementById('utrInput').value.trim();
+      const errorMsg = document.getElementById('utrError');
+      
+    
+      if(utrValue.length >= 8) {
+        document.getElementById('utrBox').style.display = 'none'; 
+        document.getElementById('whatsappActions').style.display = 'flex'; // Show WhatsApp Button
+        
+        
+        document.querySelector('.payment-layout').style.display = 'none';
+        
+        errorMsg.style.display = 'none';
+      } else {
+        errorMsg.style.display = 'block'; // Show error if invalid
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InternBite - Launch Your Tech Career</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0A0F1E;
+  --navy-mid: #111827;
+  --card-bg: #141B2D;
+  --card-hover: #1A2438;
+  --off-white: #F8F7F2;
+  --muted: #8B93A8;
+  --orange: #FF5C28;
+  --orange-light: #FF7A4D;
+  --gold: #C8A96E;
+  --border: rgba(255,255,255,0.07);
+  --border-hover: rgba(255,92,40,0.5);
+  --green: #2ECC71;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --surface-1: rgba(255,255,255,0.05);
+  --surface-1-border: rgba(255,255,255,0.1);
+  --text-secondary: rgba(248,247,242,0.65);
+  --text-quote: #C9D0DE;
+  --shadow-strong: rgba(0,0,0,0.45);
+  --footer-bg: #060A14;
+  --nav-bg: rgba(10,15,30,0.72);
+  --nav-bg-scrolled: rgba(10,15,30,0.92);
+  --nav-border: rgba(255,255,255,0.07);
+  --nav-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  --nav-mobile-bg: rgba(10,15,30,0.98);
+  color-scheme: dark;
+}
+
+/* ─── LIGHT THEME ─── */
+[data-theme="light"] {
+  --navy: #FBFAF7;
+  --navy-mid: #FFFFFF;
+  --card-bg: #FFFFFF;
+  --card-hover: #FBF3EE;
+  --off-white: #141826;
+  --muted: #6B7280;
+  --border: rgba(10,15,30,0.08);
+  --border-hover: rgba(255,92,40,0.45);
+  --surface-1: rgba(10,15,30,0.04);
+  --surface-1-border: rgba(10,15,30,0.09);
+  --text-secondary: rgba(20,24,38,0.62);
+  --text-quote: #3A4257;
+  --shadow-strong: rgba(20,20,35,0.12);
+  --footer-bg: #12161F;
+  --nav-bg: rgba(251,250,247,0.72);
+  --nav-bg-scrolled: rgba(251,250,247,0.92);
+  --nav-border: rgba(10,15,30,0.08);
+  --nav-shadow: 0 10px 30px rgba(20,20,35,0.1);
+  --nav-mobile-bg: rgba(251,250,247,0.98);
+  color-scheme: light;
+}
+[data-theme="light"] body::before { opacity: 0.15; }
+[data-theme="light"] .btn-ghost { color: var(--off-white); }
+[data-theme="light"] .hero::after { opacity: 0.6; }
+[data-theme="light"] .fb-icon,
+[data-theme="light"] .hv-avatar,
+[data-theme="light"] .testi-avatar,
+[data-theme="light"] .btn-login,
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .apply-btn:hover { color: #fff; }
+[data-theme="light"] footer,
+[data-theme="light"] footer .footer-brand p,
+[data-theme="light"] footer .footer-col a,
+[data-theme="light"] footer .footer-contact-item,
+[data-theme="light"] footer .logo,
+[data-theme="light"] .footer-bottom span,
+[data-theme="light"] .footer-bottom-links a,
+[data-theme="light"] .back-to-top { color: rgba(255,255,255,0.82); }
+[data-theme="light"] footer .footer-col h4 { color: rgba(255,255,255,0.5); }
+[data-theme="light"] .footer-divider { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12) 15%, rgba(255,255,255,0.12) 85%, transparent); }
+[data-theme="light"] .back-to-top { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.14); }
+[data-theme="light"] .back-to-top:hover { background: var(--orange); border-color: var(--orange); color: #fff; }
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--navy);
+  color: var(--off-white);
+  overflow-x: hidden;
+  line-height: 1.6;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 4px; }
+
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+
+.wrap { width: 92%; max-width: 1240px; margin: 0 auto; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 999;
+  padding: 0;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--nav-border);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+nav.is-scrolled { box-shadow: var(--nav-shadow); }
+
+.nav-inner {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 74px;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  flex-shrink: 0;
+}
+.logo em { color: var(--orange); font-style: normal; }
+
+.nav-links {
+  display: flex; gap: 36px; align-items: center;
+  list-style: none;
+  flex: 1;
+  justify-content: center;
+}
+.nav-links a {
+  position: relative;
+  font-size: 0.9rem; font-weight: 500;
+  color: var(--muted);
+  padding: 6px 2px;
+  transition: color 0.2s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 50%; right: 50%;
+  bottom: -2px;
+  height: 2px;
+  background: var(--orange);
+  border-radius: 2px;
+  transition: left 0.25s ease, right 0.25s ease;
+}
+.nav-links a:hover,
+.nav-links a:focus-visible { color: var(--off-white); }
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after { left: 0; right: 0; }
+
+.nav-links a.active { color: var(--off-white); }
+.nav-links a.active::after { left: 0; right: 0; }
+
+/* Custom Action Buttons (Navbar) */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.nav-toggle {
+  display: none;
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--surface-1);
+  border: 1px solid var(--surface-1-border);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.nav-toggle:hover { background: var(--surface-1-border); }
+.nav-toggle-bar {
+  width: 18px; height: 2px;
+  background: var(--off-white);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.2s ease;
+}
+/* Morph into an X when menu is open */
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Dimmed backdrop behind the open mobile panel */
+.nav-overlay {
+  position: fixed; inset: 74px 0 0 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 900;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.nav-overlay.active { opacity: 1; pointer-events: all; }
+.btn-verify {
+  background: var(--surface-1);
+  border: 1px solid var(--surface-1-border);
+  color: var(--off-white);
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-verify:hover { background: var(--surface-1-border); }
+.btn-verify svg { fill: currentColor; }
+
+/* Theme toggle */
+.theme-toggle {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--surface-1);
+  border: 1px solid var(--surface-1-border);
+  color: var(--off-white);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.2s;
+  position: relative;
+}
+.theme-toggle:hover { background: var(--surface-1-border); transform: translateY(-1px); }
+.theme-toggle svg { position: absolute; transition: opacity 0.25s ease, transform 0.4s ease; }
+.theme-toggle .icon-sun { opacity: 0; transform: rotate(-60deg) scale(0.5); }
+.theme-toggle .icon-moon { opacity: 1; transform: rotate(0) scale(1); }
+[data-theme="light"] .theme-toggle .icon-sun { opacity: 1; transform: rotate(0) scale(1); }
+[data-theme="light"] .theme-toggle .icon-moon { opacity: 0; transform: rotate(60deg) scale(0.5); }
+
+.btn-login {
+  background: linear-gradient(135deg, #6366F1 0%, #A855F7 100%);
+  color: #fff;
+  padding: 9px 24px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+.btn-login:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  color: #fff;
+}
+
+/* ─── MODAL STYLES ─── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10, 15, 30, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.active {
+  opacity: 1; pointer-events: all;
+}
+.modal-container {
+  background: #141B2D;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  width: 90%; max-width: 400px;
+  padding: 24px;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+.modal-overlay.active .modal-container { transform: translateY(0); }
+.modal-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 24px;
+}
+.modal-title { font-size: 1.15rem; font-weight: 700; color: #fff; }
+.modal-close {
+  background: transparent; border: none; color: var(--muted);
+  font-size: 1.2rem; cursor: pointer; transition: color 0.2s;
+}
+.modal-close:hover { color: #fff; }
+.modal-body { display: flex; flex-direction: column; gap: 16px; }
+.modal-input {
+  width: 100%; padding: 14px 16px;
+  background: #0A0F1E; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; color: #fff; font-family: var(--font-body);
+  font-size: 0.95rem; outline: none; transition: border-color 0.2s;
+}
+.modal-input:focus { border-color: #6366F1; }
+.modal-submit {
+  width: 100%; padding: 14px;
+  background: linear-gradient(135deg, #6366F1, #8B5CF6);
+  color: #fff; border: none; border-radius: 10px;
+  font-family: var(--font-body); font-size: 1rem; font-weight: 600;
+  cursor: pointer; transition: opacity 0.2s;
+}
+.modal-submit:hover { opacity: 0.9; }
+
+/* ─── APPLY MODAL PRO STYLES ─── */
+.apply-modal-container {
+  background: #141B2D;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  width: 95%; max-width: 820px;
+  padding: 40px;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  text-align: left;
+}
+[data-theme="light"] .apply-modal-container {
+  background: #FFFFFF;
+  border: 1px solid rgba(10,15,30,0.08);
+}
+.modal-overlay.active .apply-modal-container { transform: translateY(0); }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 28px;
+}
+.pricing-card {
+  border-radius: 14px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.pricing-card.free-tier {
+  border: 1px solid var(--border);
+  background: #141B2D;
+}
+[data-theme="light"] .pricing-card.free-tier {
+  background: #FFFFFF;
+}
+.pricing-card.pro-tier {
+  border: 2px solid var(--orange);
+  background: #1A2438;
+  box-shadow: 0 12px 40px rgba(255, 92, 40, 0.12);
+}
+[data-theme="light"] .pricing-card.pro-tier {
+  background: #FBF3EE;
+}
+.pro-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 2;
+}
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px 0;
+  font-size: 0.88rem;
+  flex-grow: 1;
+}
+.pricing-features li {
+  margin-bottom: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.pricing-features li strong { color: var(--off-white); }
+@media (max-width: 768px) {
+  .apply-modal-container {
+    padding: 28px 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .pricing-card.pro-tier {
+    margin-top: 8px;
+  }
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 140px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(255,92,40,0.12) 0%, transparent 70%);
+  top: -100px; right: -200px;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 60px;
+  align-items: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,92,40,0.1);
+  border: 1px solid rgba(255,92,40,0.3);
+  color: var(--orange);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 50px;
+  margin-bottom: 28px;
+}
+.badge-dot {
+  width: 6px; height: 6px;
+  background: var(--orange);
+  border-radius: 50%;
+  animation: blink 1.5s infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.hero h1 {
+  font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin-bottom: 22px;
+  line-height: 1.06;
+}
+.hero h1 span {
+  background: linear-gradient(135deg, var(--orange), #FF9A6C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--muted);
+  max-width: 520px;
+  margin-bottom: 18px;
+  font-weight: 400;
+}
+.urgency {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: #FF9A6C;
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 36px;
+}
+.urgency svg { flex-shrink: 0; }
+.hero-btns {
+  display: flex; gap: 14px; flex-wrap: wrap;
+}
+.btn-primary {
+  background: var(--orange);
+  color: #fff;
+  padding: 14px 30px;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: 2px solid var(--orange);
+  cursor: pointer;
+  transition: all 0.22s;
+  display: inline-block;
+}
+.btn-primary:hover {
+  background: transparent;
+  color: var(--orange);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--off-white);
+  padding: 14px 30px;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  transition: all 0.22s;
+  display: inline-block;
+}
+.btn-ghost:hover {
+  border-color: var(--off-white);
+}
+
+/* Premium Button Style */
+.btn-premium {
+  background: linear-gradient(135deg, #A855F7 0%, #6366F1 100%);
+  color: #fff;
+  padding: 14px 30px;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.22s;
+  display: inline-block;
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+}
+.btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.5);
+  color: #fff;
+}
+/* Hero Visual — Live Cohort Activity Card */
+.hero-visual {
+  position: relative;
+  padding: 20px;
+}
+.hv-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(38px);
+  pointer-events: none;
+  z-index: 0;
+  animation: floatOrb 9s ease-in-out infinite;
+}
+.hv-orb-1 {
+  width: 190px; height: 190px;
+  background: radial-gradient(circle, rgba(255,92,40,0.55) 0%, transparent 72%);
+  top: -20px; right: -10px;
+}
+.hv-orb-2 {
+  width: 150px; height: 150px;
+  background: radial-gradient(circle, rgba(99,102,241,0.45) 0%, transparent 72%);
+  bottom: 10px; left: -20px;
+  animation-delay: -3.5s;
+}
+@keyframes floatOrb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-12px, 16px) scale(1.08); }
+}
+
+/* Signature hero element: application terminal */
+.hv-card {
+  background: rgba(15, 20, 34, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 24px 60px var(--shadow-strong);
+}
+.hv-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(255,92,40,0.4), transparent 55%);
+  z-index: -1;
+}
+[data-theme="light"] .hv-card { background: rgba(255,255,255,0.85); }
+
+.hv-titlebar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+}
+.hv-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.hv-dot-r { background: #FF5F57; }
+.hv-dot-y { background: #FEBC2E; }
+.hv-dot-g { background: #28C840; }
+.hv-titlebar-label {
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+}
+
+.hv-term-body {
+  padding: 22px 22px 24px;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  line-height: 1.85;
+  min-height: 208px;
+}
+.hv-term-line { color: var(--text-secondary); opacity: 0; }
+.hv-term-line.shown { opacity: 1; }
+.hv-term-prompt { color: var(--orange-light); margin-right: 8px; }
+.hv-term-ok { color: var(--green); }
+.hv-term-out { color: var(--off-white); font-weight: 500; }
+.hv-cursor {
+  display: inline-block;
+  width: 7px; height: 15px;
+  background: var(--orange);
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: caretBlink 1s step-end infinite;
+}
+@keyframes caretBlink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+.hv-divider {
+  height: 1px;
+  background: var(--border);
+}
+.hv-avatars {
+  display: flex; align-items: center; gap: 12px;
+  padding: 18px 22px 20px;
+}
+.hv-avatar-stack {
+  display: flex;
+}
+.hv-avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.76rem; font-weight: 700;
+  color: #fff;
+  border: 2px solid var(--card-bg);
+  margin-left: -10px;
+}
+.hv-avatar:first-child { margin-left: 0; }
+.hv-avatars-label {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+.hv-avatars-label strong { color: var(--off-white); font-weight: 700; }
+
+.floating-badge {
+  position: absolute;
+  background: var(--navy-mid);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  z-index: 3;
+  animation: floatBadge 5s ease-in-out infinite;
+}
+.fb-cert { bottom: -18px; left: -18px; }
+.fb-rating { top: -16px; right: -16px; animation-delay: -2.5s; }
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+.fb-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--orange), #FF9A6C);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.fb-text span:first-child {
+  display: block; font-family: var(--font-display);
+  font-size: 0.92rem; font-weight: 700;
+  white-space: nowrap;
+}
+.fb-text span:last-child {
+  font-size: 0.72rem; color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ─── STATS BAR ─── */
+.stats-bar {
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 36px 0;
+}
+.stats-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.stat-item {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid var(--border);
+}
+.stat-item:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2.3rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--off-white);
+  display: block;
+}
+.stat-num em { color: var(--orange); font-style: normal; }
+.stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+
+.process-icon{
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 0;
+    background: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.process-icon img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+/* ─── SECTION COMMONS ─── */
+section { padding: 100px 0; }
+.section-eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--orange);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
+  letter-spacing: -0.8px;
+  margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 560px;
+}
+
+/* ─── COURSE GRID ─── */
+#courses { padding-bottom: 80px; }
+.courses-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 50px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: 24px;
+}
+.course-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  display: flex; flex-direction: column;
+  opacity: 0;
+  transform: translateY(30px);
+}
+.course-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.25s, box-shadow 0.25s;
+}
+.course-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(255,92,40,0.1);
+}
+.course-img {
+  width: 100%; height: 185px;
+  object-fit: cover;
+  display: block;
+}
+.course-thumb {
+  width: 100%; height: 185px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.course-body {
+  padding: 22px;
+  flex: 1;
+  display: flex; flex-direction: column;
+}
+.course-tag {
+  display: inline-block;
+  background: rgba(255,92,40,0.1);
+  border: 1px solid rgba(255,92,40,0.2);
+  color: var(--orange);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 3px 10px;
+  border-radius: 50px;
+  margin-bottom: 10px;
+}
+.course-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+.course-desc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+  flex: 1;
+  line-height: 1.6;
+}
+.course-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.course-meta-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 0.78rem; color: var(--muted);
+}
+.course-meta-item svg { flex-shrink: 0; }
+.apply-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: transparent;
+  color: var(--orange);
+  border: 1.5px solid rgba(255,92,40,0.4);
+  padding: 10px;
+  border-radius: 8px;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.apply-btn:hover {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange);
+}
+
+/* ─── PROCESS ─── */
+.process-section {
+  background: var(--navy-mid);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0;
+  margin-top: 60px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.process-step {
+  padding: 40px 30px;
+  border-right: 1px solid var(--border);
+  position: relative;
+  transition: background 0.2s;
+}
+.process-step:last-child { border-right: none; }
+.process-step:hover { background: var(--card-hover); }
+.process-icon {
+  width: 200px; height: 200px;
+  background: rgba(255,92,40,0.1);
+  border: 1px solid rgba(255,92,40,0.2);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+.process-num {
+  position: absolute;
+  top: 16px; right: 20px;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgba(255,92,40,0.06);
+}
+.process-step h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+.process-step p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ─── TESTIMONIALS ─── */
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 50px;
+}
+.testi-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  transition: border-color 0.2s;
+}
+.testi-card:hover { border-color: rgba(255,255,255,0.15); }
+.testi-stars {
+  color: #FFC107;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+.testi-quote {
+  font-size: 0.95rem;
+  color: var(--text-quote);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 22px;
+}
+.testi-author {
+  display: flex; align-items: center; gap: 12px;
+}
+.testi-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), #FF9A6C);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.testi-name {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.testi-role { font-size: 0.78rem; color: var(--muted); }
+
+/* ─── CERTIFICATE (NEW DESIGN) ─── */
+.cert-section { 
+  padding: 100px 0; 
+}
+.cert-box {
+  background: var(--navy-mid);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 60px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+.cert-text-side h2 {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  margin-bottom: 16px;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+.cert-text-side h2 span {
+  color: #4A83FF; /* Bright blue match */
+}
+.cert-text-side p {
+  color: var(--muted);
+  margin-bottom: 30px;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.cert-checks {
+  list-style: none;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.cert-checks li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--off-white);
+  font-weight: 500;
+}
+.cert-check-icon {
+  width: 22px; height: 22px;
+  background: #4A83FF;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+.btn-verify-cert {
+  background: linear-gradient(135deg, #4A83FF, #7B5CE5);
+  color: #fff;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-verify-cert:hover {
+  opacity: 0.9; transform: translateY(-2px);
+}
+.cert-img-side {
+  background: #1A2133;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 10px 40px rgba(0,0,0,0.4);
+}
+.cert-frame {
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.cert-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── FAQ ─── */
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 50px;
+}
+.faq-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.faq-q {
+  padding: 20px 22px;
+  display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  gap: 16px;
+  transition: background 0.2s;
+}
+.faq-q:hover { background: var(--card-hover); }
+.faq-icon {
+  width: 24px; height: 24px;
+  border: 1.5px solid var(--border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  border-color: var(--orange);
+  color: var(--orange);
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq-a-inner {
+  padding: 0 22px 20px;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.faq-item.open .faq-a {
+  max-height: 200px;
+}
+
+/* ─── ENROLL CTA ─── */
+.enroll-section {
+  background: var(--navy-mid);
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 100px 0;
+}
+.enroll-box {
+  max-width: 680px; margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+.enroll-glow {
+  position: absolute;
+  width: 500px; height: 300px;
+  max-width: 140%;
+  background: radial-gradient(ellipse, rgba(255,92,40,0.15) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.enroll-box h2 {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+.enroll-box p {
+  color: var(--muted);
+  margin-bottom: 36px;
+  font-size: 1rem;
+}
+.enroll-btns {
+  display: flex; justify-content: center;
+  gap: 14px; flex-wrap: wrap;
+}
+.btn-large {
+  padding: 16px 40px;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+
+/* ─── FOOTER ───
+   Reworked into a 5-column premium SaaS layout (Brand / Company / Quick Links /
+   Resources / Support) while keeping the exact same palette, fonts and surface
+   tokens as the rest of the site (--footer-bg, --surface-1, --orange, --muted...). */
+footer {
+  background: var(--footer-bg);
+  border-top: 1px solid var(--border);
+  padding: 72px 0 32px;
+  transition: background 0.35s ease;
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+.footer-brand p {
+  color: var(--muted);
+  font-size: 0.88rem;
+  margin-top: 14px;
+  max-width: 300px;
+  line-height: 1.7;
+}
+.footer-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+.social-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--surface-1);
+  border: 1px solid var(--surface-1-border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.social-icon:hover,
+.social-icon:focus-visible {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.footer-col a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  width: fit-content;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+/* Elegant hover: subtle rightward nudge instead of a heavy underline */
+.footer-col a:hover,
+.footer-col a:focus-visible { color: var(--off-white); transform: translateX(3px); }
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  transition: color 0.2s ease;
+  line-height: 1.5;
+}
+.footer-contact-item:hover,
+.footer-contact-item:focus-visible { color: var(--off-white); }
+.footer-contact-item:hover svg { color: var(--orange-light); }
+.footer-contact-item svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--orange);
+  transition: color 0.2s ease;
+}
+
+/* Modern gradient divider between the link grid and the bottom bar */
+.footer-divider {
+  height: 1px;
+  border: none;
+  margin: 8px 0 28px;
+  background: linear-gradient(90deg, transparent, var(--border) 15%, var(--border) 85%, transparent);
+}
+
+.footer-bottom {
+  padding-top: 2px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 14px;
+}
+.footer-bottom-left {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 12px 18px;
+}
+.footer-bottom span,
+.footer-bottom-links a {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.footer-bottom-links {
+  display: flex; align-items: center; gap: 18px;
+}
+.footer-bottom-links a { transition: color 0.2s ease; }
+.footer-bottom-links a:hover,
+.footer-bottom-links a:focus-visible { color: var(--off-white); }
+.footer-heart { color: var(--orange); }
+.msme-chip {
+  background: rgba(200,169,110,0.1);
+  border: 1px solid rgba(200,169,110,0.3);
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+}
+
+/* Back to top */
+.back-to-top {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface-1);
+  border: 1px solid var(--surface-1-border);
+  color: var(--off-white);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  padding: 9px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.back-to-top svg { transition: transform 0.2s ease; }
+.back-to-top:hover svg { transform: translateY(-2px); }
+
+/* ─── STICKY BOTTOM BAR (mobile) ─── */
+.sticky-bar {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+  padding: 14px 20px;
+  z-index: 900;
+  backdrop-filter: blur(10px);
+}
+.sticky-bar .btn-primary {
+  width: 100%; border-radius: 8px;
+  font-size: 0.95rem;
+  padding: 14px;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim-hero > * {
+  animation: fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) both;
+}
+.anim-hero > *:nth-child(1) { animation-delay: 0s; }
+.anim-hero > *:nth-child(2) { animation-delay: 0.1s; }
+.anim-hero > *:nth-child(3) { animation-delay: 0.2s; }
+.anim-hero > *:nth-child(4) { animation-delay: 0.3s; }
+.anim-hero > *:nth-child(5) { animation-delay: 0.4s; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1100px) {
+  .hero-grid { gap: 40px; grid-template-columns: 1fr 380px; }
+  /* Tablet: nav links collapse their spacing gracefully before disappearing into the hamburger */
+  .nav-links { gap: 22px; }
+}
+@media (max-width: 960px) {
+  section { padding: 76px 0; }
+  .hero { padding: 120px 0 64px; min-height: unset; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+
+  /* Cert layout fix for mobile */
+  .cert-box { grid-template-columns: 1fr; padding: 40px 24px; }
+  .cert-img-side { order: 1; margin-top: 20px; }
+
+  /* Footer: 5-column grid collapses to brand (full width) + a 2x2 grid of link columns */
+  .footer-inner { grid-template-columns: repeat(2, 1fr); gap: 36px 40px; }
+  .footer-brand { grid-column: 1 / -1; margin-bottom: 6px; }
+  .faq-grid { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2) { border-right: none; }
+  .stat-item:nth-child(3) { border-top: 1px solid var(--border); }
+  .stat-item:nth-child(4) { border-top: 1px solid var(--border); }
+  .sticky-bar { display: block; }
+  body { padding-bottom: 78px; }
+}
+@media (max-width: 768px) {
+  /* Mobile navigation: hamburger-triggered slide-down panel instead of the inline link row */
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: fixed;
+    top: 74px; left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 2px;
+    background: var(--nav-mobile-bg);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border-bottom: 1px solid var(--nav-border);
+    box-shadow: var(--nav-shadow);
+    padding: 8px 6% 20px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.3s ease;
+    z-index: 950;
+  }
+  .nav-links.is-open {
+    max-height: calc(100vh - 74px);
+    overflow-y: auto;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .nav-links a {
+    padding: 15px 10px;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--nav-border);
+  }
+  .nav-links a::after { display: none; } /* underline sweep reads better as a solid list on mobile */
+  .nav-links a.active { color: var(--orange); }
+  .nav-actions { gap: 8px; }
+  .btn-verify span { display: none; }
+  .btn-verify { padding: 8px 12px; }
+  .btn-login { padding: 8px 16px; font-size: 0.86rem; }
+  .theme-toggle { width: 36px; height: 36px; }
+  .cert-box { padding: 32px 20px; }
+}
+@media (max-width: 640px) {
+  .wrap { width: 90%; }
+  .courses-header { flex-direction: column; align-items: flex-start; }
+  .courses-header .btn-primary { width: 100%; text-align: center; }
+  .process-grid { grid-template-columns: 1fr; }
+  .process-step { border-right: none; border-bottom: 1px solid var(--border); padding: 32px 24px; }
+  .process-step:last-child { border-bottom: none; }
+  .footer-inner { grid-template-columns: 1fr; gap: 30px; }
+  .hero-btns { flex-direction: column; }
+  .hero-btns a { text-align: center; }
+  .enroll-btns { flex-direction: column; }
+  .enroll-btns a { text-align: center; }
+}
+@media (max-width: 480px) {
+  section { padding: 56px 0; }
+  .hero { padding: 108px 0 56px; }
+  .hero-badge { font-size: 0.7rem; padding: 5px 12px; }
+  .hero h1 { letter-spacing: -1px; }
+  .hero-sub { font-size: 1rem; }
+  .stat-num { font-size: 1.7rem; }
+  .stat-label { font-size: 0.76rem; }
+  .section-title { letter-spacing: -0.4px; }
+  .course-body { padding: 18px; }
+  .testi-card { padding: 24px; }
+  .cert-box { padding: 26px 18px; border-radius: 16px; }
+  .faq-q { padding: 16px 18px; font-size: 0.88rem; }
+  .enroll-box h2 { letter-spacing: -0.5px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .footer-bottom-left { gap: 8px 14px; }
+  .back-to-top { align-self: flex-start; }
+  .logo { font-size: 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+
+<nav aria-label="Primary">
+  <div class="wrap nav-inner">
+    <a href="#home" class="logo" aria-label="InternBite — go to top">InternBite<em>/</em></a>
+
+    <ul class="nav-links" id="navLinks" role="list">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#courses">Courses</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#certificate">Certificate</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <!-- Right Side Actions -->
+    <div class="nav-actions">
+      <!-- Theme Toggle -->
+      <button class="theme-toggle" aria-label="Toggle light and dark theme" title="Toggle theme">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </button>
+
+      <!-- Verify Button triggers Modal -->
+      <button class="btn-verify" onclick="openVerifyModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L14.7 3.6L18.4 3.2L19.4 6.8L23 8.3L21.5 12L23 15.7L19.4 17.2L18.4 20.8L14.7 20.4L12 23L9.3 20.4L5.6 20.8L4.6 17.2L1 15.7L2.5 12L1 8.3L4.6 6.8L5.6 3.2L9.3 3.6L12 1Z"></path></svg>
+        <span>Verify</span>
+      </button>
+
+      <!-- Login Button goes to lms folder -->
+      <a href="lms/index.html" class="btn-login">
+        Login &rarr;
+      </a>
+
+      <!-- Hamburger: mobile/tablet only (CSS-hidden on desktop) -->
+      <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
+
+  </div>
+</nav>
+<!-- Backdrop shown behind the open mobile menu; clicking it closes the menu -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div class="hero-content anim-hero">
+      <div class="hero-badge"><span class="badge-dot"></span>MSME Registered · Cohort 2025 Open</div>
+      <h1>Build skills that<br><span>get you hired.</span></h1>
+      <p class="hero-sub">Project-based internships in 13 tech domains. Get mentored, build a portfolio, and earn a verifiable certificate — all in one structured program.</p>
+      <div class="urgency">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#FF9A6C" stroke-width="1.5"/><path d="M7 4v3.5l2 1.5" stroke="#FF9A6C" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Limited seats · Next cohort starts in 12 days
+      </div>
+
+      <div class="hero-btns">
+        <a href="benefits.html" class="btn-ghost" style="display: inline-flex; align-items: center; gap: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+          AICTE Students (Exam Req.)
+        </a>
+        <a href="apply.html" class="btn-premium" style="display: inline-flex; align-items: center; gap: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>
+          Direct Entry (Skip Exam)
+        </a>
+      </div>
+
+    </div>
+
+    <div class="hero-visual">
+      <div class="hv-orb hv-orb-1"></div>
+      <div class="hv-orb hv-orb-2"></div>
+
+      <div class="hv-card">
+        <div class="hv-titlebar">
+          <span class="hv-dot hv-dot-r"></span>
+          <span class="hv-dot hv-dot-y"></span>
+          <span class="hv-dot hv-dot-g"></span>
+          <span class="hv-titlebar-label">internbite — zsh</span>
+        </div>
+
+        <div class="hv-term-body" id="hvTerminal" aria-hidden="true"></div>
+
+        <div class="hv-divider"></div>
+
+        <div class="hv-avatars">
+          <div class="hv-avatar-stack">
+            <span class="hv-avatar" style="background:linear-gradient(135deg,#FF5C28,#FF9A6C)">A</span>
+            <span class="hv-avatar" style="background:linear-gradient(135deg,#6366F1,#A855F7)">R</span>
+            <span class="hv-avatar" style="background:linear-gradient(135deg,#00C8FF,#3776AB)">M</span>
+            <span class="hv-avatar" style="background:linear-gradient(135deg,#34D399,#0EA5E9)">S</span>
+          </div>
+          <span class="hv-avatars-label"><strong>4,200+</strong> already enrolled</span>
+        </div>
+      </div>
+
+      <div class="floating-badge fb-cert">
+        <div class="fb-icon">🎓</div>
+        <div class="fb-text">
+          <span>Certificate Ready</span>
+          <span>Verifiable online</span>
+        </div>
+      </div>
+
+      <div class="floating-badge fb-rating">
+        <div class="fb-icon">⭐</div>
+        <div class="fb-text">
+          <span>4.8 / 5 Rating</span>
+          <span>6500+ students</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="wrap stats-inner">
+    <div class="stat-item">
+      <span class="stat-num">6,500<em>+</em></span>
+      <div class="stat-label">Students Enrolled</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">13</span>
+      <div class="stat-label">Tech Domains</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">100<em>%</em></span>
+      <div class="stat-label">Online</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">4-6</span>
+      <div class="stat-label">Week Programs</div>
+    </div>
+  </div>
+</div>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="wrap">
+    <div class="courses-header">
+      <div>
+        <p class="section-eyebrow">Internship Tracks</p>
+        <h2 class="section-title">13 in-demand tech courses</h2>
+        <p class="section-sub">Work on real projects. Get mentored. Graduate with proof.</p>
+      </div>
+      <a href="https://forms.gle/kU6Em58EoHLXQfzd7" target="_blank" rel="noopener" class="btn-primary">Apply Now</a>
+    </div>
+
+    <div class="course-grid" id="courseGrid">
+
+     
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+          <img class="course-img" src="lms/img/c.png" alt="C Programming Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">Beginner</span>
+          <div class="course-title">C Programming</div>
+          <div class="course-desc">Master fundamentals: pointers, memory management, file I/O, and data structures. Build real console applications from scratch.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.8 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+      
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Card 2: C++ -->
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #090d1a;">
+          <img class="course-img" src="lms/img/cpp.png" alt="C++ Programming Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">Intermediate</span>
+          <div class="course-title">C++ Programming</div>
+          <div class="course-desc">Object-oriented programming, STL, templates, and competitive programming patterns used in top tech interviews.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.7 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+   
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Card 3: Python -->
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #0a1208;">
+          <img class="course-img" src="lms/img/python.png" alt="Python Programming Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">Beginner Friendly</span>
+          <div class="course-title">Python Programming</div>
+          <div class="course-desc">Scripting, automation, OOP, and library usage (NumPy, Pandas). Build real-world automation tools and mini-projects.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.9 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+        
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Card 4: Web Dev -->
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #0d0a00;">
+          <img class="course-img" src="lms/img/web dev.png" alt="Web Development Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">Beginner</span>
+          <div class="course-title">Web Development</div>
+          <div class="course-desc">HTML5, CSS3, and JavaScript from ground up. Build responsive websites with animations, forms, and interactive UI components.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.8 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+      
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Card 5: Data Science -->
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #080d14;">
+          <img class="course-img" src="lms/img/data science.png" alt="Data Science with Python Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">High Demand</span>
+          <div class="course-title">Data Science with Python</div>
+          <div class="course-desc">Pandas, NumPy, Matplotlib, Seaborn, and Scikit-learn. Analyze real datasets and present insights through dashboards.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.9 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+        
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Card 6: ML & AI -->
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #0c0a14;">
+          <img class="course-img" src="lms/img/ml.png" alt="Machine Learning and AI Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">Advanced</span>
+          <div class="course-title">Machine Learning & AI</div>
+          <div class="course-desc">Supervised/unsupervised learning, neural networks, and model deployment. Work on Kaggle-level real-world prediction problems.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.9 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+        
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Card 7: MERN -->
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #081208;">
+          <img class="course-img" src="lms/img/mern.png" alt="Full Stack Web Development MERN Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">🔥 Most Popular</span>
+          <div class="course-title">Full Stack Web Dev (MERN)</div>
+          <div class="course-desc">React, Node.js, Express, and MongoDB — end-to-end. Build and deploy a full production-grade application.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>5.0 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+        
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Card 8: Java -->
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #0f0800;">
+          <img class="course-img" src="lms/img/java.png" alt="Java Programming OOP Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">Intermediate</span>
+          <div class="course-title">Java Programming (OOP)</div>
+          <div class="course-desc">Java from basics to advanced OOP, collections, multithreading, and Spring Boot fundamentals. Includes 3 mini-projects.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.8 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+         
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Card 9: DSA -->
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #0e0c02;">
+          <img class="course-img" src="lms/img/dsa.png" alt="Data Structures and Algorithms Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">Interview Prep</span>
+          <div class="course-title">Data Structures & Algorithms</div>
+          <div class="course-desc">Arrays, trees, graphs, dynamic programming, and complexity analysis. Solve 100+ problems from FAANG-level interviews.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.9 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+        
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Card 10: Flutter -->
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #080e14;">
+          <img class="course-img" src="lms/img/flutter.png" alt="Mobile App Development Flutter Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">Cross-Platform</span>
+          <div class="course-title">Mobile App Dev (Flutter)</div>
+          <div class="course-desc">Build and ship iOS & Android apps using Flutter and Dart. Includes state management, APIs, and publishing to Play Store.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.7 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+         
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Card 11: Cloud AWS -->
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #080a0f;">
+          <img class="course-img" src="lms/img/aws.png" alt="Cloud Computing with AWS Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">Cloud</span>
+          <div class="course-title">Cloud Computing with AWS</div>
+          <div class="course-desc">EC2, S3, RDS, Lambda, IAM, and CloudFormation. Design and deploy scalable cloud architectures with AWS certif prep.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.8 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+        
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+   
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #060e0a;">
+          <img class="course-img" src="lms/img/data analyst.png" alt="Data Analyst Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">High Demand</span>
+          <div class="course-title">Data Analyst</div>
+          <div class="course-desc">SQL, Excel, Python, and storytelling with data. Learn to clean, analyze, and communicate insights to business stakeholders.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.8 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+         
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Card 13: Power BI -->
+      <div class="course-card cascade-item">
+        <div class="course-thumb" style="background: #0a0800;">
+          <img class="course-img" src="lms/img/power bi.png" alt="Power BI Internship" loading="lazy" onerror="this.style.display='none'">
+        </div>
+        <div class="course-body">
+          <span class="course-tag">Business Intel</span>
+          <div class="course-title">Power BI</div>
+          <div class="course-desc">Transform raw data into stunning dashboards with Power BI Desktop, DAX formulas, and live data connectors for business use cases.</div>
+          <div class="course-meta">
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#8B93A8" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#8B93A8" stroke-width="1.2" stroke-linecap="round"/></svg>6 Weeks</div>
+            <div class="course-meta-item"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4.5l-3.5 2.5L10 12l-3.5-2.5L3 12l1-4.5L.5 5H5z" stroke="#8B93A8" stroke-width="1.1"/></svg>4.7 Rating</div>
+            <div class="course-meta-item">🎓 Certificate</div>
+          </div>
+         
+          <a href="javascript:void(0)" onclick="openApplyModal()" class="apply-btn">Apply Now &rarr;</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="process-section">
+  <div class="wrap">
+    <p class="section-eyebrow">How It Works</p>
+    <h2 class="section-title">From zero to employed - in 4 steps</h2>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="process-icon">
+    <img src="lms/images/1.png" alt="Apply & Get Selected">
+</div>
+        <div class="process-num">01</div>
+        <h3>Apply & Get Selected</h3>
+        <p>Fill out a short form. Our team reviews your background and matches you with the right track and mentor.</p>
+      </div>
+      <div class="process-step">
+<div class="process-icon">
+    <img src="lms/images/2.png" alt="Build Real Projects">
+</div>
+        <div class="process-num">02</div>
+        <h3>Build Real Projects</h3>
+        <p>Work on structured, industry-grade projects week by week. No passive watching - just shipping and learning.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-icon">
+    <img src="lms/images/3.png" alt="Build Real Projects">
+</div>
+        <div class="process-num">03</div>
+        <h3>Get Mentored</h3>
+        <p>Weekly code reviews, doubt sessions, and direct feedback from working professionals in your chosen domain.</p>
+      </div>
+      <div class="process-step">
+     <div class="process-icon">
+    <img src="lms/images/4.png" alt="Build Real Projects">
+</div>
+        <div class="process-num">04</div>
+        <h3>Graduate with Proof</h3>
+        <p>Receive a performance-based, verifiable certificate that employers can validate online. Plus a strong portfolio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="wrap">
+    <p class="section-eyebrow">Student Reviews</p>
+    <h2 class="section-title">6,500+ students. Real outcomes.</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"The MERN stack internship was exactly what my resume needed. I built a real-world app with Git reviews every week. Got placed at a startup within 3 months."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AK</div>
+          <div><div class="testi-name">Ananya K.</div><div class="testi-role">Full Stack Dev · Placed at ₹6 LPA</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"DSA mentorship was incredible. Solved 120+ problems with a mentor tracking my blind spots. Cracked interviews at 2 product companies after this."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RS</div>
+          <div><div class="testi-name">Rohan S.</div><div class="testi-role">SDE-1 · B.Tech, DTU</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Power BI track transformed how I think about data. The certificate is verifiable — HR teams appreciated that during placements. Highly professional."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">PM</div>
+          <div><div class="testi-name">Priya M.</div><div class="testi-role">Data Analyst · Deloitte</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATE -->
+<section id="certificate" class="cert-section">
+  <div class="wrap">
+    <div class="cert-box">
+      <!-- Text Side -->
+      <div class="cert-text-side">
+        <h2>Verified <span>Certification</span></h2>
+        <p>Earn a certificate that holds value. Our certifications are recognized by industry leaders and can be verified instantly online.</p>
+        <ul class="cert-checks">
+          <li>
+            <div class="cert-check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            AICTE Approved
+          </li>
+          <li>
+            <div class="cert-check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            MSME Registered
+          </li>
+          <li>
+            <div class="cert-check-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24"><path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            Unique Validation ID
+          </li>
+        </ul>
+        <button class="btn-verify-cert" onclick="openVerifyModal()">Verify a Certificate</button>
+      </div>
+      
+      
+      <div class="cert-img-side">
+        <div class="cert-frame">
+         
+          <img src="lms/images/sample.jpg" alt="Internship Certificate">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <p class="section-eyebrow">Questions</p>
+    <h2 class="section-title">Frequently asked</h2>
+    <div class="faq-grid" id="faqGrid">
+      <div class="faq-item open">
+        <div class="faq-q">How long is each internship program? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Programs range from 4 to 6 weeks depending on the track. You get weekly mentorship sessions, project checkpoints, and a final review before certification.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can complete beginners apply? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely. Several tracks like C, Python, and Web Development are designed for beginners. Your mentor will calibrate the difficulty to match your learning speed.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this program free? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Application is free. There may be a nominal program fee depending on the track. All details are shared after your application is reviewed.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Who are the mentors? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">All mentors are active industry professionals - developers, data scientists, and engineers with 3–10 years of experience at product and service companies.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Will I get a real project in my portfolio? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Every intern ships a real project. You'll have a GitHub repo, deployment link, and documented case study to show employers at the end of the program.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How does certificate verification work? <div class="faq-icon">+</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Each certificate has a unique ID. Employers can visit internbite.in/verify, enter the ID, and instantly see your project outcomes and completion details.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="enroll" class="enroll-section">
+  <div class="wrap">
+    <div class="enroll-box">
+      <div class="enroll-glow"></div>
+      <p class="section-eyebrow" style="text-align:center;">Next Cohort Starts Soon</p>
+      <h2>Don't graduate with<br>zero experience.</h2>
+      <p>Join 4,200+ students who built real skills, real projects, and real careers through InternBite. Seats are limited — apply free today.</p>
+      <div class="enroll-btns">
+        <a href="javascript:void(0)" onclick="openApplyModal()" class="btn-primary btn-large">Apply Now - Free &rarr;</a>
+        <a href="#courses" class="btn-ghost btn-large">Browse Courses</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="logo">InternBite<em>/</em></div>
+        <p>MSME-registered internship program bridging the gap between college and career through project-based, mentor-led learning across 13 tech domains.</p>
+        <div class="footer-social">
+          
+          <a href="#" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M7.5 10v6.2M7.5 7.4v.02M11.5 16.2V13c0-1.4.9-2.4 2.2-2.4 1.2 0 1.9.9 1.9 2.4v3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/><circle cx="17.3" cy="6.7" r="1.15" fill="currentColor"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.93.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .26.18.58.69.48A10 10 0 0 0 12 2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="X (Twitter)" target="_blank" rel="noopener">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 3l7.5 9.2L3.3 21h2.4l6.1-7.3 5 7.3H21l-7.8-9.6L20.4 3h-2.4l-5.6 6.7L7.4 3H3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Company -->
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#home">About</a>
+        <a href="#enroll">Contact</a>
+        <a href="#">Careers</a>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#courses">Courses</a>
+        <a href="#process">Process</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#certificate">Certificate</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <!-- Resources -->
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="https://forms.gle/kU6Em58EoHLXQfzd7" target="_blank" rel="noopener">Apply Now</a>
+        <a href="#" onclick="openVerifyModal(); return false;">Verify Certificate</a>
+        <a href="lms/index.html">Student Login</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms &amp; Conditions</a>
+      </div>
+
+      <!-- Support -->
+      <div class="footer-col footer-contact">
+        <h4>Support</h4>
+        <a class="footer-contact-item" href="mailto:contact@internbite.in">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>contact@internbite.in</span>
+        </a>
+        <a class="footer-contact-item" href="tel:+918100276449">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 5c0-.6.4-1 1-1h3l2 5-2 1.3a11 11 0 0 0 5.7 5.7L15 14l5 2v3c0 .6-.4 1-1 1C10.6 20 4 13.4 4 5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+          <span>+91 81002 76449</span>
+        </a>
+        <a class="footer-contact-item" href="#faq">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M9.3 9.3a2.7 2.7 0 1 1 3.8 2.5c-.7.3-1.1.9-1.1 1.7v.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="17" r="0.9" fill="currentColor"/></svg>
+          <span>Help Center</span>
+        </a>
+      </div>
+    </div>
+
+    <hr class="footer-divider">
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <span>© 2026 InternBite. All rights reserved.</span>
+        <span>Made with <span class="footer-heart">❤</span> in India</span>
+        <span class="msme-chip">MSME Registered</span>
+      </div>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <button class="back-to-top" id="backToTop" aria-label="Back to top">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back to Top
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+ 
+
+<!-- VERIFY MODAL -->
+<div id="verifyModal" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h3 class="modal-title">Verify Certificate</h3>
+      <button class="modal-close" onclick="closeVerifyModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="text" id="certIdInput" class="modal-input" placeholder="Enter Certificate ID" required>
+      <button class="modal-submit" onclick="checkCertificate()">Check Status</button>
+      
+      <div id="verifyResult" style="margin-top: 15px; display: none; color: #fff; font-size: 0.9rem; line-height: 1.6; background: #0A0F1E; padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APPLY MODAL -->
+<div id="applyModal" class="modal-overlay">
+  <div class="apply-modal-container">
+    <div class="modal-header" style="margin-bottom: 12px;">
+      <h3 class="modal-title" style="font-size: clamp(1.4rem, 2vw, 1.8rem);">Choose Your Path</h3>
+      <button class="modal-close" onclick="closeApplyModal()">✕</button>
+    </div>
+    <p style="color: var(--muted); margin-bottom: 0; font-size: 0.95rem; line-height: 1.6;">
+      Our AICTE & MSME approved internship is completely free. You can optionally unlock our premium placement resources to fast-track your career.
+    </p>
+    
+    <div class="pricing-grid">
+      <!-- FREE TIER -->
+      <div class="pricing-card free-tier">
+        <div style="font-weight: 700; font-size: 1.15rem; margin-bottom: 6px; color: var(--off-white);">Basic Internship</div>
+        <div style="color: #2ECC71; font-weight: 800; font-size: 1.6rem; margin-bottom: 24px;">₹0 <span style="font-size: 0.85rem; color: var(--muted); font-weight: 500;">(100% Free)</span></div>
+        
+        <ul class="pricing-features">
+          <li><span style="color: #FF5C28;">❌</span> <span><strong>Mandatory Exam:</strong> Pass required for internship</span></li>
+          <li><span style="color: #FF5C28;">❌</span> <span><strong>Only 1 Attempt:</strong> Fail = No Internship</span></li>
+          <li><span style="color: #FEBC2E;">ℹ️</span> <span>Basic Certificate</span></li>
+          <li><span style="color: #2ECC71;">✓</span> <span>Core Learning Path</span></li>
+        </ul>
+        <a href="benefits.html" class="btn-ghost" style="width: 100%; text-align: center;">Continue for Free</a>
+      </div>
+
+      <!-- PREMIUM TIER -->
+      <div class="pricing-card pro-tier">
+        <div class="pro-badge">HIGHLY RECOMMENDED</div>
+        
+        <div style="font-weight: 700; font-size: 1.15rem; margin-bottom: 6px; color: var(--off-white);">Pro Career Toolkit</div>
+        <div style="color: var(--off-white); font-weight: 800; font-size: 1.6rem; margin-bottom: 24px;">₹139 <span style="font-size: 0.85rem; color: var(--muted); font-weight: 500;">(One-time)</span></div>
+        
+        <ul class="pricing-features">
+          <li><span style="color: var(--orange);">🚀</span> <span><strong>Direct Selection:</strong> No Exam Required</span></li>
+          <li><span style="color: var(--orange);">🎓</span> <span><strong>Verified Certificate:</strong> Valid for colleges</span></li>
+          <li style="font-weight: 600; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-top: 18px; color: var(--off-white);">Plus everything in Free:</li>
+          <li><span style="color: var(--orange);">⭐</span> <span>ATS Resume Builder</span></li>
+          <li><span style="color: var(--orange);">⭐</span> <span>Top 20 Interview Qs & Material</span></li>
+          <li><span style="color: var(--orange);">⭐</span> <span>30+ Source Codes</span></li>
+        </ul>
+        <a href="apply.html" class="btn-premium" style="width: 100%; text-align: center;">Upgrade to Pro & Skip Exam</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+const courseCards = document.querySelectorAll('.cascade-item');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+courseCards.forEach(c => observer.observe(c));
+
+
+document.getElementById('faqGrid').addEventListener('click', (e) => {
+  const item = e.target.closest('.faq-item');
+  if (!item) return;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+});
+
+
+(function () {
+  const term = document.getElementById('hvTerminal');
+  if (!term) return;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const script = [
+    { html: '<span class="hv-term-prompt">$</span>internbite apply --track=web-dev', pause: 350 },
+    { html: '<span class="hv-term-out">→ matching mentor...</span>', pause: 250 },
+    { html: '<span class="hv-term-ok">✓</span> mentor assigned: <span class="hv-term-out">Priya M.</span>', pause: 250 },
+    { html: '<span class="hv-term-ok">✓</span> project brief unlocked', pause: 250 },
+    { html: '<span class="hv-term-ok">✓</span> certificate: <span class="hv-term-out">verifiable</span>', pause: 400 },
+  ];
+
+  function buildLine(container) {
+    const line = document.createElement('div');
+    line.className = 'hv-term-line shown';
+    container.appendChild(line);
+    return line;
+  }
+
+  function typeInto(el, html, done) {
+   
+    const plain = html.replace(/<[^>]*>/g, '');
+    let i = 0;
+    const speed = reduceMotion ? 0 : 18;
+    (function step() {
+      el.textContent = plain.slice(0, i);
+      i++;
+      if (i <= plain.length && !reduceMotion) {
+        setTimeout(step, speed);
+      } else {
+        el.innerHTML = html;
+        done();
+      }
+    })();
+  }
+
+  function playScript(lines, idx) {
+    if (idx >= lines.length) {
+      const cursor = document.createElement('span');
+      cursor.className = 'hv-cursor';
+      term.lastChild && term.lastChild.appendChild(cursor);
+      return;
+    }
+    const lineEl = buildLine(term);
+    typeInto(lineEl, lines[idx].html, () => {
+      setTimeout(() => playScript(lines, idx + 1), lines[idx].pause);
+    });
+  }
+
+  const startTyping = () => { term.innerHTML = ''; playScript(script, 0); };
+  if ('IntersectionObserver' in window) {
+    const termObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) { startTyping(); termObserver.disconnect(); }
+      });
+    }, { threshold: 0.3 });
+    termObserver.observe(term);
+  } else {
+    startTyping();
+  }
+})();
+
+
+(function () {
+  const root = document.documentElement;
+  const stored = localStorage.getItem('ib-theme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  if (stored === 'light' || (!stored && prefersLight)) root.setAttribute('data-theme', 'light');
+
+  const toggles = document.querySelectorAll('.theme-toggle');
+  toggles.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const isLight = root.getAttribute('data-theme') === 'light';
+      if (isLight) { root.removeAttribute('data-theme'); localStorage.setItem('ib-theme', 'dark'); }
+      else { root.setAttribute('data-theme', 'light'); localStorage.setItem('ib-theme', 'light'); }
+    });
+  });
+})();
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    const target = document.querySelector(href);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      closeMobileMenu(); 
+    }
+  });
+});
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { threshold: 0.4 });
+sections.forEach(s => io.observe(s));
+
+
+const navToggle = document.getElementById('navToggle');
+const navLinksEl = document.getElementById('navLinks');
+const navOverlay = document.getElementById('navOverlay');
+
+function openMobileMenu() {
+  navLinksEl.classList.add('is-open');
+  navOverlay.classList.add('active');
+  navToggle.setAttribute('aria-expanded', 'true');
+  navToggle.setAttribute('aria-label', 'Close navigation menu');
+}
+function closeMobileMenu() {
+  navLinksEl.classList.remove('is-open');
+  navOverlay.classList.remove('active');
+  navToggle.setAttribute('aria-expanded', 'false');
+  navToggle.setAttribute('aria-label', 'Open navigation menu');
+}
+navToggle.addEventListener('click', () => {
+  const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+  isOpen ? closeMobileMenu() : openMobileMenu();
+});
+navOverlay.addEventListener('click', closeMobileMenu);
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMobileMenu();
+});
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) closeMobileMenu();
+});
+
+const siteNav = document.querySelector('nav');
+function updateNavShadow() {
+  siteNav.classList.toggle('is-scrolled', window.scrollY > 8);
+}
+updateNavShadow();
+window.addEventListener('scroll', updateNavShadow, { passive: true });
+
+const backToTopBtn = document.getElementById('backToTop');
+if (backToTopBtn) {
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+// MODAL FUNCTIONALITY
+function openVerifyModal() {
+  document.getElementById('verifyModal').classList.add('active');
+}
+
+function closeVerifyModal() {
+  document.getElementById('verifyModal').classList.remove('active');
+}
+
+document.getElementById('verifyModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeVerifyModal();
+  }
+});
+
+// APPLY MODAL FUNCTIONALITY
+function openApplyModal() {
+  document.getElementById('applyModal').classList.add('active');
+}
+
+function closeApplyModal() {
+  document.getElementById('applyModal').classList.remove('active');
+}
+
+document.getElementById('applyModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeApplyModal();
+  }
+});
+
+
+function checkCertificate() {
+
+  const webAppUrl = "https://script.google.com/macros/s/AKfycbwVGOzck3O-FnkqjS5bBwtDJQ4YDzuGnIRyFErsPqX8Zw_h9pPw92OkmSupqHIoxNO1/exec";
+  
+  const certInput = document.getElementById('certIdInput').value.trim();
+  const resultBox = document.getElementById('verifyResult');
+
+
+  if (certInput === "") {
+    resultBox.style.display = "block";
+    resultBox.innerHTML = "<span style='color: #FF5C28;'>Please enter a valid Certificate ID.</span>";
+    return;
+  }
+
+  
+  resultBox.style.display = "block";
+  resultBox.innerHTML = "<span style='color: #6366F1;'>Verifying... Please wait.</span>";
+
+ 
+  fetch(`${webAppUrl}?id=${encodeURIComponent(certInput)}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === "found") {
+        
+        resultBox.innerHTML = `
+          <div style="color: #2ECC71; font-weight: 700; font-size: 1.05rem; margin-bottom: 10px;">✓ Certificate Verified</div>
+          <div style="margin-bottom: 4px;"><strong>Student Name:</strong> ${data.name}</div>
+          <div style="margin-bottom: 4px;"><strong>Course:</strong> ${data.course}</div>
+          <div><strong>Issue Date:</strong> ${data.issue}</div>
+        `;
+      } else if (data.status === "not_found") {
+       
+        resultBox.innerHTML = "<span style='color: #FF5C28;'>Invalid Certificate ID. No record found.</span>";
+      } else {
+       
+        resultBox.innerHTML = `<span style='color: #FF5C28;'>Error: ${data.message}</span>`;
+      }
+    })
+    .catch(error => {
+      console.error("Fetch Error:", error);
+      resultBox.innerHTML = "<span style='color: #FF5C28;'>Network error. Failed to connect to server.</span>";
+    });
+}
+</script>
+</body>
+</html>
