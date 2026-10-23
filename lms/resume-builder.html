@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Internbite Resume Builder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+     
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        
+        :root {
+            --navy: #0A0F1E;
+            --navy-mid: #111827;
+            --card-bg: #141B2D;
+            --card-hover: #1A2438;
+            --off-white: #F8F7F2;
+            --muted: #8B93A8;
+            --orange: #FF5C28;
+            --orange-light: #FF7A4D;
+            --border: rgba(255,255,255,0.07);
+            
+            --primary: var(--orange);
+            --primary-dark: var(--orange-light);
+            --bg: var(--navy);
+            --surface: var(--card-bg);
+            --text: var(--off-white);
+            --text-muted: var(--muted);
+
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            
+            
+            --resume-text: #1e293b;
+            --resume-muted: #64748b;
+            --resume-border: #e2e8f0;
+        }
+
+        body { 
+            margin: 0; 
+            font-family: var(--font-body); 
+            background: var(--bg); 
+            color: var(--text); 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+       
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        header, main { position: relative; z-index: 1; }
+        
+        
+        header { 
+            background: rgba(10,15,30,0.85); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1rem 4%; 
+            color: var(--text); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            border-bottom: 1px solid var(--border); 
+        }
+        .logo { 
+            color: var(--text); 
+            font-family: var(--font-display);
+            font-size: 1.45rem; 
+            font-weight: 800; 
+            letter-spacing: -0.5px;
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .logo i { display: none; }
+        .logo::after { content: '/'; color: var(--primary); font-style: normal; }
+        
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 0.95rem;
+            transition: all 0.2s; 
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+        .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+        .nav-links a.active { color: var(--primary); background: rgba(255,92,40,0.1); font-weight: 600; }
+        
+        main { display: flex; flex: 1; padding: 2rem; gap: 2rem; flex-wrap: wrap; justify-content: center;}
+        
+        
+        .form-section { 
+            flex: 1; 
+            min-width: 320px; 
+            max-width: 400px; 
+            background: var(--surface); 
+            padding: 1.5rem; 
+            border-radius: 12px; 
+            border: 1px solid var(--border); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+            height: calc(100vh - 120px); 
+            overflow-y: auto; 
+        }
+        
+        .form-section::-webkit-scrollbar { width: 6px; }
+        .form-section::-webkit-scrollbar-track { background: var(--surface); }
+        .form-section::-webkit-scrollbar-thumb { background: var(--navy-mid); border-radius: 10px; }
+
+        .form-section h2 { 
+            font-family: var(--font-display);
+            margin-top: 0; 
+            font-size: 1.4rem; 
+            margin-bottom: 1.5rem; 
+            border-bottom: 1px solid var(--border); 
+            padding-bottom: 0.8rem; 
+        }
+        .form-row { display: flex; gap: 10px; }
+        .form-row .input-group { flex: 1; }
+        .input-group { margin-bottom: 1.2rem; }
+        .input-group label { 
+            display: block; 
+            font-size: 0.75rem; 
+            font-weight: 600; 
+            margin-bottom: 0.4rem; 
+            color: var(--text-muted); 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
+        .input-group input, .input-group textarea { 
+            width: 100%; 
+            padding: 0.8rem; 
+            background: var(--navy-mid);
+            color: var(--text);
+            border: 1.5px solid var(--border); 
+            border-radius: 8px; 
+            font-family: inherit; 
+            font-size: 0.9rem; 
+            box-sizing: border-box; 
+            transition: all 0.2s;
+        }
+        .input-group input:focus, .input-group textarea:focus { 
+            outline: none; 
+            border-color: var(--primary); 
+            background: var(--surface);
+            box-shadow: 0 0 0 3px rgba(255, 92, 40, 0.15); 
+        }
+        .input-group textarea { min-height: 80px; resize: vertical; }
+        
+        .btn-row { 
+            display: flex; 
+            gap: 1rem; 
+            margin-top: 1rem; 
+            position: sticky; 
+            bottom: -1.5rem; 
+            background: var(--surface); 
+            padding: 1rem 0; 
+            border-top: 1px solid var(--border); 
+        }
+        button { 
+            flex: 1; 
+            padding: 0.8rem 1rem; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            transition: all 0.2s; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 8px; 
+        }
+        .btn-primary { background: var(--primary); color: #fff; border: 2px solid var(--primary); }
+        .btn-primary:hover { background: transparent; color: var(--primary); }
+        .btn-secondary { background: transparent; color: var(--primary); border: 1.5px solid rgba(255,92,40,0.4); }
+        .btn-secondary:hover { background: var(--primary); color: #fff; }
+        
+       
+        .preview-section { flex: 2; min-width: 820px; display: flex; justify-content: center; align-items: flex-start; overflow-x: auto; padding-bottom: 2rem;}
+        
+        
+        .resume-page { 
+            background: #ffffff;  
+            width: 794px;  
+            height: 1123px;  
+            padding: 40px; 
+            box-sizing: border-box; 
+            border: 1px solid var(--border); 
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4); 
+            overflow: hidden;  
+            margin: 0 auto;
+            border-radius: 4px; 
+        }
+        
+         
+        .r-header { border-bottom: 2px solid var(--resume-text); padding-bottom: 0.5rem; margin-bottom: 1rem; text-align: left; }
+        .r-name { font-family: 'Roboto', sans-serif; font-size: 1.8rem; font-weight: 700; margin: 0 0 0.3rem 0; text-transform: uppercase; color: var(--resume-text); letter-spacing: 1px;}
+        .r-contact { font-family: 'Roboto', sans-serif; font-size: 0.75rem; color: var(--resume-muted); display: flex; gap: 10px; flex-wrap: wrap; }
+        .r-section { margin-bottom: 1rem; font-family: 'Roboto', sans-serif; }
+        .r-title { font-size: 0.9rem; font-weight: 700; border-bottom: 1px solid var(--resume-border); margin-bottom: 0.4rem; text-transform: uppercase; color: var(--primary); padding-bottom: 0.2rem; }
+        .r-content { font-size: 0.8rem; line-height: 1.5; white-space: pre-wrap; color: var(--resume-text); }
+        
+        @media print { 
+            body { background: #fff; } 
+            .form-section, header { display: none !important; } 
+            .resume-page { box-shadow: none; border: none; padding: 0; margin: 0; width: 100%; height: 100%; border-radius: 0;} 
+            main { padding: 0; } 
+        }
+        @media (max-width: 1100px) { .preview-section { min-width: 100%; justify-content: flex-start; } }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo"><i class="fas fa-laptop-code"></i> Internbite</a>
+        <div class="nav-links">
+            <a href="index.html">Dashboard</a>
+            <a href="studentbenefit.html">Benefits</a>
+            <a href="resume-builder.html" class="active">Resume Builder</a>
+        </div>
+    </header>
+    <main>
+       
+        <div class="form-section">
+            <h2>Enter Details</h2>
+            <div class="input-group"><label>Full Name</label><input id="name" type="text" placeholder="John Doe"></div>
+            
+            <div class="form-row">
+                <div class="input-group"><label>Phone</label><input id="phone" type="text" placeholder="+91 9876543210"></div>
+                <div class="input-group"><label>Email</label><input id="email" type="text" placeholder="john@example.com"></div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group"><label>GitHub</label><input id="github" type="text" placeholder="github.com/johndoe"></div>
+                <div class="input-group"><label>LinkedIn</label><input id="linkedin" type="text" placeholder="linkedin.com/in/johndoe"></div>
+            </div>
+
+            <div class="input-group"><label>Summary</label><textarea id="summary" placeholder="Brief professional summary..."></textarea></div>
+            <div class="input-group"><label>Education</label><textarea id="education" placeholder="University Name, Degree, Year..."></textarea></div>
+            <div class="input-group"><label>Skills</label><textarea id="skills" placeholder="Languages, Frameworks, Tools..."></textarea></div>
+            <div class="input-group"><label>Internship & Training</label><textarea id="internship" placeholder="Company Name, Role, Duration..."></textarea></div>
+            <div class="input-group"><label>Projects</label><textarea id="projects" placeholder="Project details, tech stack used..."></textarea></div>
+            <div class="input-group"><label>Achievements</label><textarea id="achievements" placeholder="Certifications, Awards..."></textarea></div>
+            
+            <div class="btn-row">
+                <button class="btn-secondary" id="sampleBtn"><i class="fas fa-magic"></i> Load Sample</button>
+                <button class="btn-primary" id="downloadBtn"><i class="fas fa-file-pdf"></i> Export PDF</button>
+            </div>
+        </div>
+
+         
+        <div class="preview-section">
+            <div class="resume-page" id="resume-preview">
+                <div class="r-header">
+                    <h1 class="r-name" id="r-name">JOHN DOE</h1>
+                    <div class="r-contact">
+                        <span id="r-phone">+91 9876543210</span> | 
+                        <span id="r-email">john@example.com</span> | 
+                        <span id="r-github">github.com/johndoe</span> | 
+                        <span id="r-linkedin">linkedin.com/in/johndoe</span>
+                    </div>
+                </div>
+                <div class="r-section"><div class="r-title">Summary</div><div class="r-content" id="r-summary">Passionate software engineer...</div></div>
+                <div class="r-section"><div class="r-title">Education</div><div class="r-content" id="r-education">B.Tech Computer Science</div></div>
+                <div class="r-section"><div class="r-title">Skills</div><div class="r-content" id="r-skills">JavaScript, Python, React</div></div>
+                <div class="r-section"><div class="r-title">Internship & Training</div><div class="r-content" id="r-internship">Intern at TechCorp</div></div>
+                <div class="r-section"><div class="r-title">Projects</div><div class="r-content" id="r-projects">LMS Platform Redesign</div></div>
+                <div class="r-section"><div class="r-title">Achievements</div><div class="r-content" id="r-achievements">1st Prize in Hackathon</div></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const ids = ['name', 'phone', 'email', 'github', 'linkedin', 'summary', 'education', 'skills', 'internship', 'projects', 'achievements'];
+        
+        function update() {
+            document.getElementById('r-name').textContent = (document.getElementById('name').value || 'John Doe').toUpperCase();
+            ids.slice(1).forEach(id => {
+                document.getElementById(`r-${id}`).textContent = document.getElementById(id).value || `[${id.toUpperCase()}]`;
+            });
+        }
+        
+        ids.forEach(id => document.getElementById(id).addEventListener('input', update));
+        
+        
+        document.getElementById('sampleBtn').addEventListener('click', () => {
+            document.getElementById('name').value = "Alex Smith";
+            document.getElementById('phone').value = "+91-9876543210";
+            document.getElementById('email').value = "alex@internbite.com";
+            document.getElementById('github').value = "github.com/alexsmith";
+            document.getElementById('linkedin').value = "linkedin.com/in/alexsmith";
+            document.getElementById('summary').value = "Motivated B.Tech student in Computer Science with a strong foundation in Python and Data Analysis. Passionate about solving real-world problems through logic and code.";
+            document.getElementById('education').value = "XYZ University | Jun 2022 – Jul 2026\nB.Tech in Computer Science (AIML)\nCurrent CGPA: 8.5";
+            document.getElementById('skills').value = "Programming: Python, SQL, C++\nLibraries: Pandas, NumPy, Matplotlib, React.js";
+            document.getElementById('internship').value = "Data Analyst Intern - TechCorp | May 2025 – Present\n• Developed interactive dashboards using Power BI.\n• Cleaned and preprocessed large datasets using Python and SQL.";
+            document.getElementById('projects').value = "Smart Analytics Dashboard\n• Designed an automated sales tracking system.\n• Achieved 20% improvement in reporting time using automated Python scripts.\n\nIoT Smart Cooler\n• Built an ultra-cooling system with temperature sensors and Arduino.";
+            document.getElementById('achievements').value = "• 1st Place - National IoT Exposition 2024\n• Awarded 'Best Innovation Trophy' for Smart Cooler project.";
+            update();
+        });
+        
+        
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            const element = document.getElementById('resume-preview');
+            const opt = {
+                margin: 0,
+                filename: (document.getElementById('name').value.trim() || 'Internbite') + '-Resume.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0 },
+                jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait' } // Forces exact A4 pixel dimensions
+            };
+            
+            html2pdf().set(opt).from(element).save();
+        });
+
+         
+        update();
+    </script>
+</body>
+</html>

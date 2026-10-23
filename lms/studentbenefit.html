@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internbite Benefits</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Landing Page Fonts imported -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        
+        :root {
+            --navy: #0A0F1E;
+            --navy-mid: #111827;
+            --card-bg: #141B2D;
+            --card-hover: #1A2438;
+            --off-white: #F8F7F2;
+            --muted: #8B93A8;
+            --orange: #FF5C28;
+            --orange-light: #FF7A4D;
+            --border: rgba(255,255,255,0.07);
+            --border-hover: rgba(255,92,40,0.5);
+
+            --primary: var(--orange);
+            --primary-dark: var(--orange-light);
+            --bg: var(--navy);
+            --nav-bg: rgba(10,15,30,0.85);
+            --surface: var(--card-bg);
+            --text: var(--off-white);
+            --text-muted: var(--muted);
+            
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+
+        body { 
+            font-family: var(--font-body); 
+            background: var(--bg); 
+            color: var(--text); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.4;
+        }
+ 
+        header, .container, footer { position: relative; z-index: 1; }
+        
+        header { 
+            background: var(--nav-bg); 
+            padding: 1rem 0; 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+        }
+        
+        .navbar { 
+            max-width: 1240px; 
+            margin: 0 auto; 
+            padding: 0 4%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+ 
+        .logo { 
+            color: var(--text); 
+            font-family: var(--font-display);
+            font-size: 1.45rem; 
+            font-weight: 800; 
+            letter-spacing: -0.5px;
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+        }
+        .logo i { display: none; }  
+        .logo::after { content: '/'; color: var(--primary); font-style: normal; }
+
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 0.95rem;
+            transition: all 0.2s; 
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+        .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+        .nav-links a.active { color: var(--primary); background: rgba(255,92,40,0.1); font-weight: 600; }
+
+        .container { max-width: 1240px; margin: 0 auto; padding: 4rem 4%; flex: 1; width: 100%; }
+        
+        .hero { text-align: center; margin-bottom: 4rem; position: relative; }
+        .hero::before {
+            content: ''; position: absolute; width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255,92,40,0.15) 0%, transparent 70%); 
+            top: -150px; left: 50%; transform: translateX(-50%); border-radius: 50%; pointer-events: none; z-index: -1;
+        }
+        .hero h1 { 
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 4vw, 3.2rem); 
+            letter-spacing: -1px;
+            color: var(--text); 
+            margin-bottom: 1.2rem; 
+            line-height: 1.1;
+        }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+        
+        .card { 
+            background: var(--surface); 
+            border-radius: 12px; 
+            padding: 2.5rem 2rem; 
+            text-align: center; 
+            border: 1px solid var(--border); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+            transition: all 0.3s; 
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--border-hover); 
+            box-shadow: 0 12px 40px rgba(255,92,40,0.1); 
+        }
+        
+        .card i.icon { 
+            font-size: 2.8rem; 
+            color: var(--primary); 
+            margin-bottom: 1.5rem; 
+            background: rgba(255,92,40,0.1);
+            width: 80px; height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card h3 { 
+            font-family: var(--font-display);
+            font-size: 1.4rem; 
+            margin-bottom: 1rem; 
+            color: var(--text); 
+        }
+        .card p { 
+            color: var(--text-muted); 
+            margin-bottom: 2rem; 
+            line-height: 1.6; 
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+        .card a { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            gap: 8px; 
+            background: transparent; 
+            color: var(--primary); 
+            border: 1.5px solid rgba(255,92,40,0.4);
+            padding: 12px 24px; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            font-weight: 700; 
+            font-family: var(--font-display);
+            transition: all 0.2s; 
+            font-size: 0.95rem;
+        }
+        .card:hover a { 
+            background: var(--primary); 
+            color: #fff; 
+            border-color: var(--primary);
+        }
+
+        footer { 
+            background: transparent; 
+            border-top: 1px solid var(--border); 
+            padding: 2rem; 
+            text-align: center; 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+        }
+        
+        @media (max-width: 768px) { 
+            .nav-links { display: none; } 
+            .hero { margin-bottom: 3rem; }
+            .card { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo"><i class="fas fa-laptop-code"></i> Internbite</a>
+            <div class="nav-links">
+                <a href="studentbenefit.html" class="active">Benefits</a>
+                <a href="resume-builder.html">Resume Builder</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Exclusive Internbite Benefits</h1>
+            <p>Premium industry-grade resources curated to accelerate your placement and career growth.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-briefcase icon"></i>
+                <h3>Placement Prep</h3>
+                <p>Complete aptitude, technical, and HR interview masterclass preparation materials.</p>
+                <a href="https://drive.google.com/drive/folders/16HrMb_IMx9U2xX6BdDEqVwwi3Vq7wcNe?usp=sharing" target="_blank">Access Kit <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="card">
+                <i class="fas fa-building icon"></i>
+                <h3>Top Companies</h3>
+                <p>Company-specific interview guides and previous year technical questions.</p>
+                <a href="https://drive.google.com/drive/folders/1veHWCW3eDKwk6zOtyBVzXG9ZFTtJE3Uu" target="_blank">Access Kit <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="card">
+                <i class="fas fa-code icon"></i>
+                <h3>Industry Source Code</h3>
+                <p>Over 30+ production-grade software projects and templates to study.</p>
+                <a href="https://drive.google.com/drive/folders/1VFNE8Ilsr-cqthe7zy1nuB0n6L1Jqr_v?usp=sharing" target="_blank">Access Kit <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="card">
+                <i class="fas fa-book icon"></i>
+                <h3>Curated Notes</h3>
+                <p>High-quality digital and handwritten notes optimized for quick revision.</p>
+                <a href="https://drive.google.com/drive/folders/1Nu63hHv-QskHYFPPIzCze0LLEwKiaZaD?usp=sharing" target="_blank">Access Kit <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Internbite Platform. All Rights Reserved.
+    </footer>
+</body>
+</html>

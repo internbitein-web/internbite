@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InternBite | Internship Learning Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+ 
+ 
+:root, body.light-theme {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --surface-alt: #eef0f6;
+    --border: #e2e6f0;
+    --border-strong: #cbd2e0;
+    --text: #0a0f1e;
+    --text-muted: #5a6075;
+    --text-faint: #8b93a8;
+
+    --primary: #FF5C28;
+    --primary-dark: #ea4b15;
+    --primary-light: #FF9A6C;
+    --primary-soft: rgba(255, 92, 40, 0.1);
+
+    --accent: #FF5C28;
+    --accent-dark: #ea4b15;
+    --accent-soft: rgba(255, 92, 40, 0.1);
+
+    --sidebar-bg: rgba(255, 255, 255, 0.9);
+    --sidebar-hover: #f5f6f8;
+    --sidebar-active: #f5f6f8;
+    --sidebar-text: #5a6075;
+    --sidebar-border: #e2e6f0;
+
+    --success: #2ECC71;
+    --success-soft: rgba(46, 204, 113, 0.1);
+    --warning: #C8A96E;
+    --danger: #FF5C5C;
+    --danger-soft: rgba(255, 92, 92, 0.1);
+
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-xl: 22px;
+
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+
+    --t-fast: 0.2s ease;
+    --t: 0.3s ease;
+    --t-slow: 0.5s ease;
+
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.05);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 40px rgba(255,92,40,0.15);
+
+    --sidebar-w: 264px;
+    --topbar-h: 68px;
+
+  
+    --orange: var(--primary);
+    --muted: var(--text-muted);
+    --green: var(--success);
+}
+
+ 
+body.dark-theme {
+    --bg: #0A0F1E;
+    --surface: #141B2D;
+    --surface-alt: #111827;
+    --border: rgba(255,255,255,0.07);
+    --border-strong: rgba(255,255,255,0.15);
+    --text: #F8F7F2;
+    --text-muted: #8B93A8;
+    --text-faint: #5a6075;
+
+    --sidebar-bg: rgba(10,15,30,0.85);
+    --sidebar-hover: #1A2438;
+    --sidebar-active: #1A2438;
+    --sidebar-text: #8B93A8;
+    --sidebar-border: rgba(255,255,255,0.07);
+
+    --shadow-sm: 0 4px 12px rgba(0,0,0,0.2);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.3);
+    --shadow-lg: 0 12px 40px rgba(255,92,40,0.1);
+}
+ 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-body);
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    transition: background-color var(--t), color var(--t);
+}
+ 
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; }
+code { font-family: monospace; background: var(--surface-alt); padding: 0.1rem 0.4rem; border-radius: 5px; font-size: 0.85em; color: var(--primary-light); border: 1px solid var(--border); transition: background var(--t), border-color var(--t); }
+
+.container { max-width: 1240px; margin: 0 auto; padding: 0 4%; position: relative; z-index: 2; width: 100%; }
+section { padding-top: 2rem; padding-bottom: 4rem; }
+.hidden { display: none !important; }
+ 
+header#header {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--topbar-h); z-index: 200;
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 0.5rem;
+    padding: 0 4%; border-bottom: 1px solid var(--sidebar-border);
+    transition: background var(--t), border-color var(--t);
+}
+
+.hamburger {
+    grid-column: 1; display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; background: transparent; border: none;
+    color: var(--text); font-size: 1.15rem; border-radius: var(--r-sm); cursor: pointer; transition: background var(--t-fast);
+}
+.hamburger:hover { background: var(--surface-alt); }
+
+.logo {
+    grid-column: 2; display: inline-flex; align-items: center; justify-content: flex-start;
+    text-decoration: none; justify-self: start;
+}
+
+.logo-mark { display: none; }
+.logo-text { font-family: var(--font-display); font-size: 1.45rem; font-weight: 800; letter-spacing: -0.5px; color: var(--text); transition: color var(--t); }
+.logo-text::after { content: '/'; color: var(--orange); font-style: normal; }
+
+header#header .theme-toggle { grid-column: 3; justify-self: end; }
+.theme-toggle {
+    border: 1px solid var(--border); background: transparent; border-radius: var(--r-sm);
+    width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 0.92rem; color: var(--muted); transition: all var(--t-fast);
+}
+.theme-toggle:hover { color: var(--text); border-color: var(--text); }
+
+.nav-links {
+    position: fixed; top: var(--topbar-h); left: 0;
+    width: min(82vw, 300px); height: calc(100vh - var(--topbar-h));
+    background: var(--sidebar-bg); backdrop-filter: blur(20px);
+    display: flex; flex-direction: column; gap: 0.2rem;
+    padding: 1.5rem 1rem; transform: translateX(-100%); transition: transform var(--t), background var(--t), border-color var(--t);
+    z-index: 199; border-right: 1px solid var(--border); overflow-y: auto;
+}
+.nav-links.show { transform: translateX(0); }
+
+.nav-links a {
+    display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+    border-radius: 8px; font-size: 0.95rem; font-weight: 500; text-decoration: none;
+    color: var(--muted); transition: all 0.2s; white-space: nowrap;
+}
+.nav-links a i { width: 18px; text-align: center; font-size: 1rem; }
+.nav-links a:hover { color: var(--text); background: var(--surface-alt); }
+.nav-links a.active { color: var(--orange); background: var(--primary-soft); font-weight: 600; }
+.nav-links a.nav-logout { margin-top: auto; color: var(--danger); }
+.nav-links a.locked { opacity: 0.5; cursor: not-allowed; }
+.nav-links a.locked:hover { background: transparent; color: var(--muted); }
+.nav-links a.locked .lock-badge { margin-left: auto; font-size: 0.8rem; color: var(--text-faint); }
+.nav-links a.nav-logout:hover { background: var(--danger-soft); }
+
+@media (min-width: 993px) {
+    header#header {
+        top: 0; left: 0; bottom: 0; right: auto; width: var(--sidebar-w); height: 100vh;
+        display: flex; flex-direction: column; align-items: flex-start;
+        padding: 1.5rem 1.15rem; border-bottom: none; border-right: 1px solid var(--border);
+    }
+    .hamburger { display: none; }
+    .logo { padding: 0 0.3rem; margin-bottom: 20px; }
+    .nav-links { position: static; transform: none; width: 100%; height: auto; flex: 1; margin-top: 1rem; padding: 0; border: none; background: transparent; }
+    header#header .theme-toggle { margin-top: 1rem; align-self: flex-start; }
+}
+
+header:not(.hidden) ~ .container:not(#login-page) { padding-top: calc(var(--topbar-h) + 1.4rem); }
+@media (min-width: 993px) {
+    header:not(.hidden) ~ .container:not(#login-page) { margin-left: var(--sidebar-w); padding-top: 2.4rem; max-width: 1180px; }
+}
+
+/* ── 6. Page headers ────────────────────────────────────────── */
+.page-title { font-size: clamp(1.9rem, 3vw, 2.8rem); letter-spacing: -0.8px; display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 1.6rem; line-height: 1.1; }
+.page-title-chip {
+    font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+    background: rgba(255,92,40,0.1); border: 1px solid rgba(255,92,40,0.3); color: var(--orange); padding: 4px 12px; border-radius: 50px;
+}
+.page-header { display: flex; flex-direction: column; align-items: flex-start; gap: 0.9rem; margin-bottom: 2rem; }
+
+
+.btn {
+    position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 28px; border-radius: 8px; font-size: 0.95rem; font-weight: 700; font-family: var(--font-display);
+    cursor: pointer; user-select: none; white-space: nowrap; transition: all 0.22s; border: 2px solid transparent;
+}
+.btn-primary { background: var(--orange); color: #fff; border-color: var(--orange); }
+.btn-primary:hover { background: transparent; color: var(--orange); transform: translateY(-1px); }
+
+.btn-secondary, .btn-outline { background: transparent; color: var(--text); border-color: var(--border-strong); }
+.btn-secondary:hover, .btn-outline:hover { border-color: var(--text); transform: translateY(-1px); }
+
+.btn-success { background: var(--green); color: #fff; border-color: var(--green); }
+.btn-success:hover { background: transparent; color: var(--green); }
+
+.btn[disabled], .btn:disabled { opacity: 0.42; cursor: not-allowed; transform: none !important; }
+.back-btn { margin-bottom: 0.2rem; padding: 10px 20px; font-size: 0.85rem; }
+
+
+#login-page.container { max-width: 100%; padding: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+.login-container {
+    width: 100%; max-width: 980px; display: grid; grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-lg); margin: 2rem;
+    transition: border-color var(--t);
+}
+
+@media (max-width: 860px) {
+    .login-container { grid-template-columns: 1fr; max-width: 460px; margin: 1rem; }
+}
+
+.login-hero {
+    position: relative; background: var(--surface-alt); padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; overflow: hidden; transition: background var(--t);
+}
+.login-hero::before {
+    content: ''; position: absolute; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,92,40,0.12) 0%, transparent 70%); top: -100px; right: -200px; border-radius: 50%; pointer-events: none;
+}
+.login-hero > * { position: relative; z-index: 1; }
+.hero-logo { margin-bottom: 2rem; }
+.login-hero-badge {
+    display: inline-flex; align-items: center; gap: 8px; background: rgba(255,92,40,0.1); border: 1px solid rgba(255,92,40,0.3);
+    color: var(--orange); font-size: 0.78rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; padding: 6px 14px; border-radius: 50px; margin-bottom: 1.5rem;
+}
+.login-hero-title { font-size: clamp(2rem, 3.5vw, 2.5rem); letter-spacing: -1px; margin-bottom: 1rem; line-height: 1.1; }
+.login-hero-sub { font-size: 1rem; color: var(--muted); max-width: 22rem; margin-bottom: 2rem; }
+.login-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.login-features li { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text); }
+.login-features li i { color: var(--orange); font-size: 1rem; }
+
+.login-card { background: var(--surface); padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; transition: background var(--t); }
+.login-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--green); font-weight: 600; margin-bottom: 1.1rem; }
+.login-card h2 { font-size: 1.9rem; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+.login-card > p { font-size: 0.95rem; color: var(--muted); margin-bottom: 2rem; }
+.login-hint {
+    margin-top: 1.5rem; font-size: 0.85rem; color: var(--muted); background: var(--surface-alt);
+    border: 1px solid var(--border); border-radius: 8px; padding: 1rem; display: flex; align-items: flex-start; gap: 10px; transition: background var(--t), border-color var(--t);
+}
+.login-hint i { color: var(--orange); margin-top: 0.2rem; }
+
+/* ── 9. Form Elements ──────────────────────────────────────── */
+.form-group { margin-bottom: 1.2rem; text-align: left; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+.form-group label { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 6px; font-weight: 600; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+.form-group label i { color: var(--orange); }
+.form-group input {
+    width: 100%; padding: 14px 16px; border-radius: 8px; border: 1.5px solid var(--border);
+    background: var(--surface-alt); color: var(--text); font-size: 0.95rem; font-family: var(--font-body); outline: none; transition: all 0.2s;
+}
+.form-group input::placeholder { color: var(--text-faint); }
+.form-group input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,92,40,0.15); background: var(--surface); }
+.password-container { position: relative; }
+.toggle-password { position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%); border: none; background: none; color: var(--muted); cursor: pointer; font-size: 1rem; padding: 0.5rem; transition: all 0.2s; }
+.toggle-password:hover { color: var(--orange); }
+#login-form .btn-primary { width: 100%; margin-top: 0.5rem; padding: 16px; }
+
+/* ── 10. Courses Grid (Landing Page Style) ─────────────────── */
+.courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+.course-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    cursor: pointer; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s, background 0.25s; display: flex; flex-direction: column;
+}
+.course-card:hover { border-color: rgba(255,92,40,0.5); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+.course-image { position: relative; width: 100%; height: 185px; overflow: hidden; background: var(--surface-alt); transition: background var(--t); }
+.course-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; opacity: 0.8; }
+.course-card:hover .course-image img { transform: scale(1.05); opacity: 1; }
+
+.course-image-overlay { position: absolute; top: 1rem; left: 1rem; display: flex; gap: 0.5rem; }
+.course-chip {
+    background: rgba(255,92,40,0.1); border: 1px solid rgba(255,92,40,0.2); color: var(--orange); backdrop-filter: blur(4px);
+    font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; padding: 3px 10px; border-radius: 50px;
+}
+
+.course-content { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+.course-content h3 {
+    font-size: 1.15rem; margin-bottom: 8px; line-height: 1.35; font-weight: 700;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; text-overflow: ellipsis; word-break: break-word; min-height: 2.7em;
+}
+.course-content p { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; flex: 1; }
+
+.progress-container { margin-bottom: 16px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); margin-bottom: 8px; text-transform: none; font-weight: 400; }
+.progress-bar { height: 6px; border-radius: 50px; background: rgba(139, 147, 168, 0.15); overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 50px; background: linear-gradient(90deg, var(--orange), #FF9A6C); transition: width 0.8s ease; }
+
+.continue-btn {
+    width: 100%; text-align: center; background: transparent; color: var(--orange); border: 1.5px solid rgba(255,92,40,0.4);
+    padding: 10px; border-radius: 8px; font-family: var(--font-display); font-size: 0.88rem; font-weight: 700; transition: all 0.2s;
+}
+.course-card:hover .continue-btn { background: var(--orange); color: #fff; border-color: var(--orange); }
+
+/* ── 11. Course / Weeks Page ───────────────────────────────── */
+.weeks-container { display: flex; flex-direction: column; gap: 20px; }
+.week-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.2s, background 0.2s; }
+.week-card:hover { border-color: rgba(255,255,255,0.15); }
+.week-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; background: var(--surface-alt); border-bottom: 1px solid var(--border); transition: background 0.2s; }
+.week-header h3 { font-size: 1.1rem; }
+.week-header span {
+    font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 50px;
+    background: rgba(255,92,40,0.1); color: var(--orange); border: 1px solid rgba(255,92,40,0.2);
+}
+.week-header:not(.locked) span:has(.fa-check-circle) { background: rgba(46, 204, 113, 0.1); color: var(--green); border-color: rgba(46, 204, 113, 0.2); }
+.week-header.locked span { background: rgba(255, 92, 92, 0.1); color: var(--danger); border-color: rgba(255, 92, 92, 0.2); }
+.week-header.locked { opacity: 0.6; }
+.week-content { padding: 22px; }
+.video-container {
+    position: relative; width: 100%; max-width: 760px; aspect-ratio: 16/9; border-radius: 12px;
+    overflow: hidden; background: #000; margin: 0 auto 20px; border: 1px solid var(--border);
+}
+.video-container iframe { width: 100%; height: 100%; border: none; display: block; }
+.locked-overlay { position: absolute; inset: 0; background: rgba(10, 15, 30, 0.85); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 2rem; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; max-width: 760px; margin: 0 auto; }
+.actions .assignment-input {
+    flex: 1 1 200px; padding: 12px 16px; border-radius: 8px; border: 1.5px solid var(--border);
+    background: var(--surface-alt); color: var(--text); font-size: 0.9rem; outline: none; transition: all 0.2s;
+}
+.actions .assignment-input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,92,40,0.15); }
+.actions .assignment-input:disabled { opacity: 0.5; cursor: not-allowed; }
+.actions .btn { padding: 12px 20px; font-size: 0.85rem; }
+
+/* ── 12. Profile Page ──────────────────────────────────────── */
+.profile-container { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+@media (max-width: 860px) { .profile-container { grid-template-columns: 1fr; } }
+.profile-container > .security-card { grid-column: 1 / -1; }
+.profile-card, .analytics-card, .security-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: background var(--t); }
+.profile-card { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+
+.profile-picture {
+    position: relative; width: 100px; height: 100px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), #FF9A6C); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 2.5rem; overflow: hidden; cursor: pointer;
+}
+.profile-picture img { width: 100%; height: 100%; object-fit: cover; }
+.change-photo {
+    position: absolute; inset: 0; background: rgba(10, 15, 30, 0.75); color: #fff; font-size: 0.75rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; text-align: center; opacity: 0; transition: opacity 0.2s;
+}
+.profile-picture:hover .change-photo { opacity: 1; }
+.profile-info h2 { font-size: 1.3rem; margin-bottom: 4px; }
+.profile-info p { font-size: 0.9rem; color: var(--muted); margin-bottom: 16px; }
+
+.analytics-card h3, .security-card h3 { font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.analytics-card h3 i, .security-card h3 i { color: var(--orange); }
+.security-note { font-size: 0.9rem; color: var(--muted); margin-bottom: 20px; line-height: 1.6; }
+.course-progress { margin-bottom: 20px; }
+.course-progress-header { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 8px; color: var(--text); }
+.data-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
+
+/* ── 13. Notification Toast ────────────────────────────────── */
+.notification {
+    position: fixed; bottom: 20px; right: 20px; max-width: min(380px, calc(100vw - 40px));
+    background: var(--surface-alt); color: var(--text); padding: 16px 20px; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.15); border: 1px solid var(--border);
+    transform: translateY(150%); opacity: 0; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 500; border-left: 4px solid var(--orange);
+}
+.notification.show { transform: translateY(0); opacity: 1; }
+.notification.error { border-left-color: var(--danger); }
+
+/* ── 15. Polish Layer: Scrollbars, Modals ──────────────────── */
+::selection { background: rgba(255,92,40,0.3); color: var(--text); }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: 4px; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 10px; border: 1px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+section.container:not(.hidden) { animation: fadeUp 0.4s cubic-bezier(0.22,1,0.36,1) both; }
+
+.nav-backdrop {
+    position: fixed; inset: 0; background: rgba(10, 15, 30, 0.6); backdrop-filter: blur(4px);
+    z-index: 198; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.nav-backdrop.show { opacity: 1; pointer-events: auto; }
+@media (min-width: 993px) { .nav-backdrop { display: none; } }
+
+.modal-overlay {
+    position: fixed; inset: 0; z-index: 600; background: rgba(10, 15, 30, 0.7); backdrop-filter: blur(5px);
+    display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.modal-overlay.show { opacity: 1; pointer-events: auto; }
+.modal-card {
+    width: 100%; max-width: 440px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; box-shadow: var(--shadow-lg); padding: 36px 32px;
+    transform: translateY(20px) scale(0.97); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-overlay.show .modal-card { transform: translateY(0) scale(1); }
+.modal-icon {
+    width: 54px; height: 54px; border-radius: 12px; background: rgba(255,92,40,0.1); border: 1px solid rgba(255,92,40,0.2);
+    color: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px;
+}
+.modal-card h3 { font-size: 1.4rem; margin-bottom: 8px; }
+.modal-card > p { font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+.modal-actions { display: flex; gap: 12px; margin-top: 10px; }
+.modal-actions .btn { flex: 1; padding: 14px; }
+
+    </style>
+</head>
+
+<body>
+
+    <header id="header" class="hidden">
+        <button class="hamburger" id="hamburger-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="logo">
+            <span class="logo-mark">IB</span>
+            <span class="logo-text">InternBite</span>
+        </div>
+        <nav class="nav-links">
+            <a href="#" id="dashboard-link" class="active"><i class="fas fa-table-cells-large"></i><span>Dashboard</span></a>
+            <a href="studentbenefit.html" id="benefits-link"><i class="fas fa-gift"></i><span>Student Benefits</span></a>
+            <a href="#" id="profile-link"><i class="fas fa-circle-user"></i><span>Profile</span></a>
+            <a href="https://roadmap.sh" target="_blank" id="roadmap-link"><i class="fas fa-diagram-project"></i><span>Roadmap</span></a>
+            <a href="#" id="resume-link"><i class="fas fa-file-lines"></i><span>Resume Builder</span></a>
+            <a href="#" id="quiz-link"><i class="fas fa-circle-question"></i><span>Take Quiz</span><i class="fas fa-lock lock-badge"></i></a>
+            <a href="#" id="logout-link" class="nav-logout"><i class="fas fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </nav>
+        <button class="theme-toggle" id="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
+    </header>
+
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+
+    <section id="login-page" class="container">
+        <div class="login-container">
+            <div class="login-hero">
+                <div class="logo hero-logo">
+                    <span class="logo-mark">IB</span>
+                    <span class="logo-text">InternBite</span>
+                </div>
+                <div class="login-hero-badge"><i class="fas fa-shield-halved"></i> MSME &amp; AICTE Approved</div>
+                <div class="login-hero-title">Your internship learning journey, organized.</div>
+                <div class="login-hero-sub">
+                    Follow structured 4-week tracks with videos, downloadable study kits, assignments and real-time progress tracking - all in one place.
+                </div>
+                <ul class="login-features">
+                    <li><i class="fas fa-circle-check"></i> 13 industry-relevant course tracks</li>
+                    <li><i class="fas fa-circle-check"></i> Weekly video lessons &amp; study material</li>
+                    <li><i class="fas fa-circle-check"></i> Assignment submission &amp; tracking</li>
+                    <li><i class="fas fa-circle-check"></i> Certificate on completion</li>
+                </ul>
+            </div>
+            <div class="login-card">
+                <div class="login-badge">
+                    <i class="fas fa-lock"></i> Secure InternBite Access
+                </div>
+                <h2>Welcome back</h2>
+                <p>Sign in with your username and password to continue learning.</p>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username"><i class="fas fa-user"></i> Username</label>
+                        <input type="text" id="username" placeholder="Enter your username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-key"></i> Password</label>
+                        <div class="password-container">
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password" id="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-arrow-right-to-bracket"></i> Login
+                    </button>
+                </form>
+                <p class="login-hint">
+                    <i class="fas fa-circle-info"></i>
+                     <code></code>Once logged in, you can set your own custom password anytime from your Profile page.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="dashboard-page" class="container hidden">
+        <h1 class="page-title">
+            My Courses
+            <span class="page-title-chip">Student View</span>
+        </h1>
+        <div class="courses-grid" id="courses-container">
+            </div>
+    </section>
+
+    <section id="course-page" class="container hidden">
+        <div class="page-header">
+            <button class="btn btn-outline back-btn" id="back-to-dashboard">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </button>
+            <h1 class="page-title" id="course-title">Course Title</h1>
+        </div>
+        <div class="weeks-container" id="weeks-container">
+            </div>
+    </section>
+
+    <section id="profile-page" class="container hidden">
+        <h1 class="page-title">
+            My Profile
+            <span class="page-title-chip">Progress &amp; Analytics</span>
+        </h1>
+        <div class="profile-container">
+            <div class="profile-card">
+                <div class="profile-picture" id="profile-picture">
+                    <i class="fas fa-user"></i>
+                    <div class="change-photo" id="change-photo-btn">Change Photo</div>
+                </div>
+                <div class="profile-info">
+                    <h2 id="profile-name">Student Name</h2>
+                    <p id="profile-email">student@example.com</p>
+                    <button class="btn btn-outline" id="edit-profile-btn">
+                        <i class="fas fa-pen"></i> Edit Profile
+                    </button>
+                </div>
+            </div>
+            <div class="analytics-card">
+                <h3><i class="fas fa-chart-line"></i> Course Analytics</h3>
+                <div id="profile-courses">
+                    </div>
+                <div class="data-actions">
+                    <button class="btn btn-primary" id="export-data">
+                        <i class="fas fa-download"></i> Export Data
+                    </button>
+                    <button class="btn btn-outline" id="import-data">
+                        <i class="fas fa-upload"></i> Import Data
+                    </button>
+                    <input type="file" id="import-file" class="hidden" accept=".json">
+                </div>
+            </div>
+            <div class="security-card">
+                <h3><i class="fas fa-shield-halved"></i> Change Password</h3>
+                <p class="security-note">
+                    By default your password is <code>username@internbite123</code>. Set a custom password below to make your account more secure - you can update it anytime.
+                </p>
+                <form id="change-password-form">
+                    <div class="form-group">
+                        <label for="current-password"><i class="fas fa-key"></i> Current Password</label>
+                        <div class="password-container">
+                            <input type="password" id="current-password" placeholder="Enter current password" required>
+                            <button type="button" class="toggle-password" id="toggle-current-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="new-password"><i class="fas fa-lock"></i> New Password</label>
+                            <input type="password" id="new-password" placeholder="Min. 6 characters" required minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password"><i class="fas fa-lock"></i> Confirm Password</label>
+                            <input type="password" id="confirm-password" placeholder="Re-enter new password" required minlength="6">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check"></i> Update Password
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div class="notification" id="notification">
+        Operation completed successfully!
+    </div>
+
+    <input type="file" id="profile-picture-input" class="hidden" accept="image/*">
+
+    <div class="modal-overlay" id="password-setup-modal">
+        <div class="modal-card">
+            <div class="modal-icon"><i class="fas fa-key"></i></div>
+            <h3>Set your own password</h3>
+            <p>You're currently signed in with the default password. Set a personal password now so only you can access your account - or skip and do it later from your Profile page.</p>
+            <form id="password-setup-form">
+                <div class="form-group">
+                    <label for="setup-new-password"><i class="fas fa-lock"></i> New Password</label>
+                    <div class="password-container">
+                        <input type="password" id="setup-new-password" placeholder="Min. 6 characters" required minlength="6">
+                        <button type="button" class="toggle-password" id="toggle-setup-new-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="setup-confirm-password"><i class="fas fa-lock"></i> Confirm Password</label>
+                    <div class="password-container">
+                        <input type="password" id="setup-confirm-password" placeholder="Re-enter new password" required minlength="6">
+                        <button type="button" class="toggle-password" id="toggle-setup-confirm-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-outline" id="password-setup-skip">Skip for now</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Set Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+     
+        const LMS = {
+            // Current user
+            currentUser: null,
+            
+           
+            courseCatalog: [{
+                id: 'c-programming',
+                title: 'C Programming',
+                description: 'Master the fundamentals of C programming language',
+                pdfFiles: {
+                    1: 'study_materials/c-programming/week 1.zip',
+                    2: 'study_materials/c-programming/week 2.zip',
+                    3: 'study_materials/c-programming/week 3.zip',
+                    4: 'study_materials/c-programming/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/KJgsSFOSQv0',
+                    2: 'https://www.youtube.com/embed/87SH2Cn0s9A',
+                    3: 'https://www.youtube.com/embed/irqbmMNs2Bo',
+                    4: 'https://www.youtube.com/embed/Bz4MxDeEM6k'
+                }
+            }, {
+                id: 'cpp',
+                title: 'C++ Programming',
+                description: 'Learn object-oriented programming with C++',
+                pdfFiles: {
+                    1: 'study_materials/cpp/week 1.zip',
+                    2: 'study_materials/cpp/week 2.zip',
+                    3: 'study_materials/cpp/week 3.zip',
+                    4: 'study_materials/cpp/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/-TkoO8Z07hI',
+                    2: 'https://www.youtube.com/embed/vLnPwxZdW4Y',
+                    3: 'https://www.youtube.com/embed/ZzaPdXTrSb8',
+                    4: 'https://www.youtube.com/embed/iVLQeWbgbXs'
+                }
+            }, {
+                id: 'python',
+                title: 'Python Programming',
+                description: 'Start your journey with versatile Python language',
+                pdfFiles: {
+                    1: 'study_materials/python/week 1.zip',
+                    2: 'study_materials/python/week 2.zip',
+                    3: 'study_materials/python/week 3.zip',
+                    4: 'study_materials/python/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/rfscVS0vtbw',
+                    2: 'https://www.youtube.com/embed/HeW-D6KpDwY',
+                    3: 'https://www.youtube.com/embed/8ext9G7xspg',
+                    4: 'https://www.youtube.com/embed/fqF9M92jzUo'
+                }
+            }, {
+                id: 'web-dev',
+                title: 'Web Development',
+                description: 'Build websites with HTML, CSS, and JavaScript',
+                pdfFiles: {
+                    1: 'study_materials/web-dev/week 1.zip',
+                    2: 'study_materials/web-dev/week 2.zip',
+                    3: 'study_materials/web-dev/week 3.zip',
+                    4: 'study_materials/web-dev/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/kUMe1FH4CHE',
+                    2: 'https://www.youtube.com/embed/HGTJBPNC-Gw',
+                    3: 'https://www.youtube.com/embed/PkZNo7MFNFg',
+                    4: 'https://www.youtube.com/embed/krfUjg0S2uI'
+                }
+            }, {
+                id: 'data-science',
+                title: 'Data Science with Python',
+                description: 'Analyze and visualize data using Python',
+                pdfFiles: {
+                    1: 'study_materials/data-science/week 1.zip',
+                    2: 'study_materials/data-science/week 2.zip',
+                    3: 'study_materials/data-science/week 3.zip',
+                    4: 'study_materials/data-science/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/ua-CiDNNj30',
+                    2: 'https://www.youtube.com/embed/r-uOLxNrNk8',
+                    3: 'https://www.youtube.com/embed/aircAruvnKk',
+                    4: 'https://www.youtube.com/embed/LHBE6Q9XlzI'
+                }
+            }, {
+                id: 'ml-ai',
+                title: 'Machine Learning & AI',
+                description: 'Introduction to ML algorithms and AI concepts',
+                pdfFiles: {
+                    1: 'study_materials/ml-ai/week 1.zip',
+                    2: 'study_materials/ml-ai/week 2.zip',
+                    3: 'study_materials/ml-ai/week 3.zip',
+                    4: 'study_materials/ml-ai/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/7eh4d6sabA0',
+                    2: 'https://www.youtube.com/embed/VCJdg7YBbAQ',
+                    3: 'https://www.youtube.com/embed/i_LwzRVP7bg',
+                    4: 'https://www.youtube.com/embed/Hr06nSA-qww'
+                }
+            }, {
+                id: 'mern',
+                title: 'Full Stack Web Development (MERN)',
+                description: 'Build modern web apps with MongoDB, Express, React, Node.js',
+                pdfFiles: {
+                    1: 'study_materials/mern/week 1.zip',
+                    2: 'study_materials/mern/week 2.zip',
+                    3: 'study_materials/mern/week 3.zip',
+                    4: 'study_materials/mern/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/98BzS5Oz5E4',
+                    2: 'https://www.youtube.com/embed/CvCiNeLnZ00',
+                    3: 'https://www.youtube.com/embed/RGKi6LSPDLU',
+                    4: 'https://www.youtube.com/embed/XuFDcZABiDQ'
+                }
+            }, {
+                id: 'java',
+                title: 'Java Programming',
+                description: 'Learn Java with OOP concepts and real projects',
+                pdfFiles: {
+                    1: 'study_materials/java/week 1.zip',
+                    2: 'study_materials/java/week 2.zip',
+                    3: 'study_materials/java/week 3.zip',
+                    4: 'study_materials/java/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/xk4_1vDrzzo',
+                    2: 'https://www.youtube.com/embed/eTXd89t8ngI',
+                    3: 'https://www.youtube.com/embed/5o3fMLPY7qY',
+                    4: 'https://www.youtube.com/embed/UmnCZ7-9yDY'
+                }
+            }, {
+                id: 'dsa',
+                title: 'Data Structures & Algorithms',
+                description: 'Master essential DSA concepts for coding interviews',
+                pdfFiles: {
+                    1: 'study_materials/dsa/week 1.zip',
+                    2: 'study_materials/dsa/week 2.zip',
+                    3: 'study_materials/dsa/week 3.zip',
+                    4: 'study_materials/dsa/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/8hly31xKli0',
+                    2: 'https://www.youtube.com/embed/RBSGKlAvoiM',
+                    3: 'https://www.youtube.com/embed/nqowUJzG-iM',
+                    4: 'https://www.youtube.com/embed/0IAPZzGSbME'
+                }
+            }, {
+                id: 'flutter',
+                title: 'Mobile App Development (Flutter)',
+                description: 'Build cross-platform mobile apps with Flutter',
+                pdfFiles: {
+                    1: 'study_materials/flutter/week 1.zip',
+                    2: 'study_materials/flutter/week 2.zip',
+                    3: 'study_materials/flutter/week 3.zip',
+                    4: 'study_materials/flutter/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/1ukSR1GRtMU',
+                    2: 'https://www.youtube.com/embed/x0uinJvhNxI',
+                    3: 'https://www.youtube.com/embed/VPvVD8t02U8',
+                    4: 'https://www.youtube.com/embed/D4nhaszNW4o'
+                }
+            }, {
+                id: 'aws',
+                title: 'Cloud Computing with AWS',
+                description: 'Deploy and manage applications on AWS cloud',
+                pdfFiles: {
+                    1: 'study_materials/aws/week1.zip',
+                    2: 'study_materials/aws/week2.zip',
+                    3: 'study_materials/aws/week3.zip',
+                    4: 'study_materials/aws/week4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/ubCNZRNjhyo',
+                    2: 'https://www.youtube.com/embed/3hLmDS179YE',
+                    3: 'https://www.youtube.com/embed/Tg2krHXHzBc',
+                    4: 'https://www.youtube.com/embed/3jZ5vnv-LZc'
+                }
+            }, {
+                id: 'data-analyst',
+                title: 'Data Analyst',
+                description: 'Become a data analyst with statistical and visualization skills',
+                pdfFiles: {
+                    1: 'study_materials/data-analyst/week 1.zip',
+                    2: 'study_materials/data-analyst/week 2.zip',
+                    3: 'study_materials/data-analyst/week 3.zip',
+                    4: 'study_materials/data-analyst/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/NMuV2o9yrE4',
+                    2: 'https://www.youtube.com/embed/7mz73uXD9DA',
+                    3: 'https://www.youtube.com/embed/rfscVS0vtbw',
+                    4: 'https://www.youtube.com/embed/3u7MQz1EyPY'
+                }
+            }, {
+                id: 'power-bi',
+                title: 'Power BI',
+                description: 'Create interactive dashboards and business intelligence reports',
+                pdfFiles: {
+                    1: 'study_materials/power-bi/week 1.zip',
+                    2: 'study_materials/power-bi/week 2.zip',
+                    3: 'study_materials/power-bi/week 3.zip',
+                    4: 'study_materials/power-bi/week 4.zip'
+                },
+                youtubeVideos: {
+                    1: 'https://www.youtube.com/embed/3u7MQz1EyPY',
+                    2: 'https://www.youtube.com/embed/AGrl-H87pRU',
+                    3: 'https://www.youtube.com/embed/5X5LWcLtkzg',
+                    4: 'https://www.youtube.com/embed/mmxVCFceQgU'
+                }
+            }],
+            
+            
+            init: function() {
+                this.loadTheme();
+                this.bindEvents();
+                this.checkAuthStatus();
+                
+             
+                if (!this.currentUser) {
+                    this.showPage('login-page');
+                    document.getElementById('header').classList.add('hidden');
+                }
+                
+              
+                window.addEventListener('storage', this.handleStorageEvent.bind(this));
+                
+               
+                window.addEventListener('popstate', (e) => {
+                    if (e.state && e.state.page) {
+                        LMS.showPage(e.state.page, false);
+                    } else {
+                        LMS.showPage('dashboard-page', false);
+                    }
+                });
+            },
+            
+            isValidDriveLink: function (url) {
+                const driveRegex = /^(https:\/\/)?(drive\.google\.com)\/(file\/d\/|open\?id=|drive\/folders\/)/i;
+                return driveRegex.test(url);
+            },
+            
+          
+loadTheme: function() {
+   
+    
+    const isLoggedIn = !!localStorage.getItem('InternBite-current-user');
+    const savedTheme = localStorage.getItem('InternBite-theme') || 'dark';
+    const themeToApply = isLoggedIn ? savedTheme : 'dark';
+    document.body.className = `${themeToApply}-theme`;
+    this.updateThemeIcon(themeToApply);
+},
+         
+updateThemeIcon: function(theme) {
+    const themeIcon = document.querySelector('#theme-toggle i');
+    themeIcon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+},
+           
+            bindEvents: function() {
+               
+                document.getElementById('theme-toggle').addEventListener('click', this.toggleTheme.bind(this));
+                
+              
+                document.getElementById('login-form').addEventListener('submit', this.handleLogin.bind(this));
+                
+               
+                document.getElementById('toggle-password').addEventListener('click', () => {
+                    this.togglePasswordVisibility('password', 'toggle-password');
+                });
+                
+                
+                document.getElementById('change-password-form').addEventListener('submit', this.changePassword.bind(this));
+                
+                
+                document.getElementById('toggle-current-password').addEventListener('click', () => {
+                    this.togglePasswordVisibility('current-password', 'toggle-current-password');
+                });
+                
+              
+                document.getElementById('dashboard-link').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('dashboard-page', true);
+                    this.updateNavActive('dashboard-link');
+                    this.renderDashboard();
+                });
+                
+                document.getElementById('profile-link').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showPage('profile-page');
+                    this.updateNavActive('profile-link');
+                    this.renderProfile();
+                });
+                
+                 
+                document.getElementById('resume-link').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.location.href = 'resume-builder.html';
+                });
+                
+                
+                document.getElementById('quiz-link').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (e.currentTarget.classList.contains('locked')) {
+                        this.showNotification('Complete Week 4 of any course to unlock the Quiz section.', true);
+                        return;
+                    }
+                    window.location.href = 'project-root/index.html';
+                });
+                
+                document.getElementById('logout-link').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.handleLogout();
+                });
+                
+                
+                document.getElementById('back-to-dashboard').addEventListener('click', () => {
+                    this.showPage('dashboard-page');
+                    this.updateNavActive('dashboard-link');
+                });
+                
+ 
+                document.getElementById('export-data').addEventListener('click', this.exportData.bind(this));
+                document.getElementById('import-data').addEventListener('click', () => {
+                    document.getElementById('import-file').click();
+                });
+                
+                document.getElementById('import-file').addEventListener('change', this.importData.bind(this));
+                
+                 
+                document.getElementById('change-photo-btn').addEventListener('click', () => {
+                    document.getElementById('profile-picture-input').click();
+                });
+                
+                document.getElementById('profile-picture-input').addEventListener('change', this.changeProfilePicture.bind(this));
+                
+                 
+                document.getElementById('edit-profile-btn').addEventListener('click', this.editProfile.bind(this));
+                
+            
+                document.getElementById('hamburger-btn').addEventListener('click', () => {
+                    document.querySelector('.nav-links').classList.toggle('show');
+                    const backdrop = document.getElementById('nav-backdrop');
+                    if (backdrop) backdrop.classList.toggle('show');
+                });
+                
+                
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        document.querySelector('.nav-links').classList.remove('show');
+                        const backdrop = document.getElementById('nav-backdrop');
+                        if (backdrop) backdrop.classList.remove('show');
+                    });
+                });
+                
+                
+                const navBackdrop = document.getElementById('nav-backdrop');
+                if (navBackdrop) {
+                    navBackdrop.addEventListener('click', () => {
+                        document.querySelector('.nav-links').classList.remove('show');
+                        navBackdrop.classList.remove('show');
+                    });
+                }
+                
+              
+                const passwordSetupForm = document.getElementById('password-setup-form');
+                if (passwordSetupForm) {
+                    passwordSetupForm.addEventListener('submit', this.handlePasswordSetup.bind(this));
+                }
+                const passwordSetupSkip = document.getElementById('password-setup-skip');
+                if (passwordSetupSkip) {
+                    passwordSetupSkip.addEventListener('click', () => this.closePasswordSetupPrompt());
+                }
+                const toggleSetupNew = document.getElementById('toggle-setup-new-password');
+                if (toggleSetupNew) {
+                    toggleSetupNew.addEventListener('click', () => {
+                        this.togglePasswordVisibility('setup-new-password', 'toggle-setup-new-password');
+                    });
+                }
+                const toggleSetupConfirm = document.getElementById('toggle-setup-confirm-password');
+                if (toggleSetupConfirm) {
+                    toggleSetupConfirm.addEventListener('click', () => {
+                        this.togglePasswordVisibility('setup-confirm-password', 'toggle-setup-confirm-password');
+                    });
+                }
+            },
+            
+             
+            togglePasswordVisibility: function(inputId = 'password', buttonId = 'toggle-password') {
+                const passwordInput = document.getElementById(inputId);
+                const toggleButton = document.getElementById(buttonId);
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                } else {
+                    passwordInput.type = 'password';
+                    toggleButton.innerHTML = '<i class="fas fa-eye"></i>';
+                }
+            },
+            
+toggleTheme: function() {
+    const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.body.classList.remove(`${currentTheme}-theme`);
+    document.body.classList.add(`${newTheme}-theme`);
+    
+    localStorage.setItem('InternBite-theme', newTheme);
+    this.updateThemeIcon(newTheme);
+},
+            
+           
+            handleLogin: function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
+                
+                if (!username || !password) return;
+                
+                const users = JSON.parse(localStorage.getItem('InternBite-users')) || {};
+                const existingUser = users[username];
+                
+               
+                if (existingUser && existingUser.customPassword) {
+                    if (password === existingUser.customPassword) {
+                        this.authenticateUser(username, existingUser.role || 'full');
+                    } else {
+                        this.showNotification('Invalid credentials. Please try again.', true);
+                    }
+                    return;
+                }
+                
+            
+                if (password === `${username}@internbite123`) {
+                    this.authenticateUser(username, 'full');
+                } 
+               
+                else if (password === `${username}@internbite2026`) {
+                    this.authenticateUser(username, 'restricted');
+                } 
+                else {
+                    this.showNotification('Invalid credentials. Please try again.', true);
+                }
+            },
+            
+            authenticateUser: function(username, role = 'full') {
+                let users = JSON.parse(localStorage.getItem('InternBite-users')) || {};
+                
+                
+                if (!users[username]) {
+                    users[username] = this.createNewUser(username);
+                }
+                
+               
+                users[username].role = role;
+                localStorage.setItem('InternBite-users', JSON.stringify(users));
+                
+               
+                this.currentUser = users[username];
+                localStorage.setItem('InternBite-current-user', username);
+                
+              
+                document.getElementById('header').classList.remove('hidden');
+                this.showPage('dashboard-page');
+                this.updateNavActive('dashboard-link');
+                this.renderDashboard();
+                
+                
+                this.applyAccessControls();
+                this.updateQuizLockState();
+                
+                this.showNotification(`Welcome back, ${username}!`);
+                
+               
+                if (!this.currentUser.customPassword) {
+                    setTimeout(() => this.showPasswordSetupPrompt(), 450);
+                }
+            },
+            
+        
+            showPasswordSetupPrompt: function() {
+                const modal = document.getElementById('password-setup-modal');
+                if (!modal) return;
+                const form = document.getElementById('password-setup-form');
+                if (form) form.reset();
+                modal.classList.add('show');
+            },
+            
+           
+            closePasswordSetupPrompt: function() {
+                const modal = document.getElementById('password-setup-modal');
+                if (modal) modal.classList.remove('show');
+            },
+            
+           
+            handlePasswordSetup: function(e) {
+                e.preventDefault();
+                
+                const newInput = document.getElementById('setup-new-password').value;
+                const confirmInput = document.getElementById('setup-confirm-password').value;
+                
+                if (newInput.length < 6) {
+                    this.showNotification('Password must be at least 6 characters', true);
+                    return;
+                }
+                
+                if (newInput !== confirmInput) {
+                    this.showNotification('Passwords do not match', true);
+                    return;
+                }
+                
+                this.currentUser.customPassword = newInput;
+                this.saveUserData();
+                this.closePasswordSetupPrompt();
+                this.showNotification('Password set! Use it the next time you log in.');
+            },
+            
+          
+            updateQuizLockState: function() {
+                const quizLink = document.getElementById('quiz-link');
+                if (!quizLink || !this.currentUser || !this.currentUser.courseProgress) return;
+
+                const anyCourseWeek4Complete = Object.values(this.currentUser.courseProgress)
+                    .some(progress => progress.weeks && progress.weeks[4] && progress.weeks[4].completed);
+
+                quizLink.classList.toggle('locked', !anyCourseWeek4Complete);
+            },
+
+            
+            applyAccessControls: function() {
+                const resumeLink = document.getElementById('resume-link');
+                const certLink = document.getElementById('certificate-link');
+                const benefitsLink = document.getElementById('benefits-link');
+                
+                if (this.currentUser && this.currentUser.role === 'restricted') {
+                    if (resumeLink) resumeLink.classList.add('hidden');
+                    if (certLink) certLink.classList.add('hidden');
+                    if (benefitsLink) benefitsLink.classList.add('hidden');
+                } else {
+                    if (resumeLink) resumeLink.classList.remove('hidden');
+                    if (certLink) certLink.classList.remove('hidden');
+                    if (benefitsLink) benefitsLink.classList.remove('hidden');
+                }
+            },
+            
+         
+            createNewUser: function(username) {
+               
+                const courseProgress = {};
+                this.courseCatalog.forEach(course => {
+                    courseProgress[course.id] = {
+                        weeks: {
+                            1: {
+                                completed: false,
+                                assignmentSubmitted: false,
+                                assignmentLink: ''
+                            },
+                            2: {
+                                completed: false,
+                                assignmentSubmitted: false,
+                                assignmentLink: ''
+                            },
+                            3: {
+                                completed: false,
+                                assignmentSubmitted: false,
+                                assignmentLink: ''
+                            },
+                            4: {
+                                completed: false,
+                                assignmentSubmitted: false,
+                                assignmentLink: ''
+                            }
+                        },
+                        currentWeek: 1
+                    };
+                });
+                
+                return {
+                    username: username,
+                    email: `${username}@internbite.com`,
+                    profilePicture: null,
+                    customPassword: null, // student hasn't set a custom password yet - default password applies
+                    enrolledCourses: this.courseCatalog.map(course => ({
+                        id: course.id,
+                        title: course.title,
+                        description: course.description,
+                        progress: 0
+                    })),
+                    courseProgress: courseProgress,
+                    role: 'full' // Default role
+                };
+            },
+            
+           
+            checkAuthStatus: function() {
+                const currentUsername = localStorage.getItem('InternBite-current-user');
+                if (currentUsername) {
+                    const users = JSON.parse(localStorage.getItem('InternBite-users')) || {};
+                    if (users[currentUsername]) {
+                        this.currentUser = users[currentUsername];
+                        document.getElementById('header').classList.remove('hidden');
+                        this.showPage('dashboard-page');
+                        this.updateNavActive('dashboard-link');
+                        this.renderDashboard();
+                        
+                     
+                        this.applyAccessControls();
+                        this.updateQuizLockState();
+                    } else {
+                   
+                        localStorage.removeItem('InternBite-current-user');
+                        this.showPage('login-page');
+                        document.getElementById('header').classList.add('hidden');
+                    }
+                } else {
+                  
+                    this.showPage('login-page');
+                    document.getElementById('header').classList.add('hidden');
+                }
+            },
+            
+      
+            handleLogout: function() {
+                this.currentUser = null;
+                localStorage.removeItem('InternBite-current-user');
+                document.getElementById('header').classList.add('hidden');
+                this.showPage('login-page');
+                document.getElementById('login-form').reset();
+             
+                document.body.className = 'dark-theme';
+                this.updateThemeIcon('dark');
+                this.showNotification('You have been logged out successfully.');
+            },
+            
+           
+            showPage: function(pageId, push = true) {
+                // Hide all sections
+                const sections = ['login-page', 'dashboard-page', 'course-page', 'profile-page'];
+                sections.forEach(id => {
+                    const section = document.getElementById(id);
+                    if (section) section.classList.add('hidden');
+                });
+                
+               
+                const page = document.getElementById(pageId);
+                if (!page) return;
+                
+                page.classList.remove('hidden');
+                
+               
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // browser history
+                if (push) {
+                    history.pushState({ page: pageId }, '', `#${pageId}`);
+                }
+            },
+            
+            // Update active navigation link
+            updateNavActive: function(activeLinkId) {
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                const activeLink = document.getElementById(activeLinkId);
+                if (activeLink) activeLink.classList.add('active');
+            },
+           
+            renderDashboard: function() {
+                const container = document.getElementById('courses-container');
+                container.innerHTML = '';
+                
+               
+                const imageMap = {
+                    'c-programming': 'img/c.png',
+                    'cpp': 'img/cpp.png',
+                    'python': 'img/python.png',
+                    'web-dev': 'img/web dev.png',
+                    'data-science': 'img/data science.png',
+                    'ml-ai': 'img/ml.png',
+                    'mern': 'img/mern.png',
+                    'java': 'img/java.png',
+                    'dsa': 'img/dsa.png',
+                    'flutter': 'img/flutter.png',
+                    'aws': 'img/aws.png',
+                    'data-analyst': 'img/data analyst.png',
+                    'power-bi': 'img/power bi.png'
+                };
+                
+                this.currentUser.enrolledCourses.forEach(course => {
+                    const progress = this.calculateCourseProgress(course.id);
+                    
+                    
+                    course.progress = progress;
+                    
+                    const courseCard = document.createElement('div');
+                    courseCard.className = 'course-card';
+                    courseCard.setAttribute('data-course', course.id);
+                    
+                     
+                    const imagePath = imageMap[course.id] || 'img/BI.png';
+                    
+                    courseCard.innerHTML = `
+                        <div class="course-image">
+                            <img src="${imagePath}" alt="${course.title}">
+                            <div class="course-image-overlay">
+                                
+                                <span class="course-chip">4 Weeks</span>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <h3>${course.title}</h3>
+                            <p>${course.description}</p>
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>Progress</span>
+                                    <span>${progress}%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: ${progress}%"></div>
+                                </div>
+                            </div>
+                            <div class="btn btn-primary continue-btn">
+                                Continue <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    `;
+                    
+                   
+                    courseCard.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const courseId = courseCard.getAttribute('data-course');
+                        this.openCourse(courseId);
+                    });
+                    
+                    container.appendChild(courseCard);
+                });
+                
+                
+                this.saveUserData();
+            },
+            
+             
+            calculateCourseProgress: function(courseId) {
+                const progress = this.currentUser.courseProgress[courseId];
+                if (!progress) return 0;
+                
+                const weeks = progress.weeks;
+                let completedWeeks = 0;
+                
+                for (let week in weeks) {
+                    if (weeks[week].completed) completedWeeks++;
+                }
+                
+                return Math.round((completedWeeks / 4) * 100);
+            },
+            
+            
+            openCourse: function(courseId) {
+                const course = this.currentUser.enrolledCourses.find(c => c.id === courseId);
+                if (!course) return;
+                
+                document.getElementById('course-title').textContent = course.title;
+                this.renderCourseWeeks(courseId);
+                this.showPage('course-page', true);
+            },
+            
+            renderCourseWeeks: function(courseId) {
+                const container = document.getElementById('weeks-container');
+                container.innerHTML = '';
+                
+                const courseProgress = this.currentUser.courseProgress[courseId];
+                const course = this.courseCatalog.find(c => c.id === courseId);
+                
+                for (let week = 1; week <= 4; week++) {
+                    const weekData = courseProgress.weeks[week];
+                    const isLocked = week > 1 && !courseProgress.weeks[week - 1].completed;
+                    
+                    const videoUrl = course.youtubeVideos ? course.youtubeVideos[week] : 'https://www.youtube.com/embed/dQw4w9WgXcQ';
+                    
+                    const weekCard = document.createElement('div');
+                    weekCard.className = 'week-card';
+                    weekCard.setAttribute('data-course-id', courseId);
+                    weekCard.setAttribute('data-week', week);
+                    weekCard.innerHTML = `
+                        <div class="week-header ${isLocked ? 'locked' : ''}">
+                            <h3>Week ${week}</h3>
+                            ${isLocked ?
+                                '<span><i class="fas fa-lock"></i> Locked</span>' :
+                                (weekData.completed ?
+                                    '<span><i class="fas fa-check-circle"></i> Completed</span>' :
+                                    '<span><i class="fas fa-circle-notch"></i> In Progress</span>')
+                            }
+                        </div>
+                        <div class="week-content">
+                            <div class="video-container">
+                                <iframe src="${videoUrl}" 
+                                        title="Week ${week} Video - ${course.title}" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                        allowfullscreen>
+                                </iframe>
+                                ${isLocked ? '<div class="locked-overlay"><i class="fas fa-lock"></i></div>' : ''}
+                            </div>
+                            <div class="actions">
+                                <button class="btn btn-secondary study-material-btn" data-week="${week}" ${isLocked ? 'disabled' : ''}>
+                                    <i class="fas fa-download"></i> Study Material
+                                </button>
+                                <input type="text" class="assignment-input" 
+                                       placeholder="Paste your assignment link here" 
+                                       value="${weekData.assignmentLink || ''}"
+                                       data-week="${week}"
+                                       ${isLocked || weekData.assignmentSubmitted ? 'disabled' : ''}>
+                                <button class="btn btn-success submit-assignment-btn" 
+                                        data-week="${week}" 
+                                        ${isLocked || weekData.assignmentSubmitted ? 'disabled' : ''}>
+                                    ${weekData.assignmentSubmitted ?
+                                        '<i class="fas fa-check"></i> Submitted' :
+                                        '<i class="fas fa-paper-plane"></i> Submit Assignment'}
+                                </button>
+                                <button class="btn btn-primary mark-complete-btn" 
+                                        data-week="${week}" 
+                                        ${isLocked || !weekData.assignmentSubmitted || weekData.completed ? 'disabled' : ''}>
+                                    ${weekData.completed ?
+                                        '<i class="fas fa-check-double"></i> Completed' :
+                                        '<i class="fas fa-flag-checkered"></i> Mark Complete'}
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(weekCard);
+                }
+                
+                this.bindWeekActions(courseId);
+            },
+            
+            bindWeekActions: function(courseId) {
+                 
+                document.querySelectorAll('.study-material-btn').forEach(btn => {
+                   
+                    const newBtn = btn.cloneNode(true);
+                    btn.parentNode.replaceChild(newBtn, btn);
+                    
+                    if (!newBtn.disabled) {
+                        newBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const week = parseInt(e.currentTarget.getAttribute('data-week'));
+                            this.downloadStudyMaterial(courseId, week);
+                        });
+                    }
+                });
+                
+               
+                document.querySelectorAll('.submit-assignment-btn').forEach(btn => {
+                    const newBtn = btn.cloneNode(true);
+                    btn.parentNode.replaceChild(newBtn, btn);
+                    
+                    if (!newBtn.disabled) {
+                        newBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const week = parseInt(e.currentTarget.getAttribute('data-week'));
+                           
+                            const actionsContainer = e.currentTarget.closest('.actions');
+                            const input = actionsContainer.querySelector('.assignment-input');
+                            
+                            const link = input.value.trim();
+                            
+                            if (link === '') {
+                                this.showNotification('Please enter an assignment link', true);
+                                return;
+                            }
+                            
+                            if (!this.isValidDriveLink(link)) {
+                                this.showNotification('Only Google Drive links are allowed!', true);
+                                return;
+                            }
+                            
+                            this.submitAssignment(courseId, week, link);
+                        });
+                    }
+                });
+                
+                
+                document.querySelectorAll('.mark-complete-btn').forEach(btn => {
+                    const newBtn = btn.cloneNode(true);
+                    btn.parentNode.replaceChild(newBtn, btn);
+                    
+                    if (!newBtn.disabled) {
+                        newBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const week = parseInt(e.currentTarget.getAttribute('data-week'));
+                            this.markWeekComplete(courseId, week);
+                        });
+                    }
+                });
+            },
+            
+            downloadStudyMaterial: function(courseId, week) {
+                const course = this.courseCatalog.find(c => c.id === courseId);
+                if (!course || !course.pdfFiles || !course.pdfFiles[week]) {
+                    this.showNotification('Study material not available for this week', true);
+                    return;
+                }
+                
+                const filePath = course.pdfFiles[week];
+                const fileExtension = filePath.split('.').pop().toLowerCase();
+                
+                if (fileExtension === 'zip') {
+                    this.downloadZipFile(courseId, week, filePath);
+                } else if (fileExtension === 'pdf') {
+                    this.downloadPdfFile(courseId, week, filePath);
+                } else {
+                    this.downloadGenericFile(courseId, week, filePath);
+                }
+            },
+            
+            downloadZipFile: function(courseId, week, filePath) {
+                const a = document.createElement('a');
+                a.href = filePath;
+                a.download = `${courseId}-week-${week}-materials.zip`;
+                a.target = '_blank';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                this.showNotification(`ZIP study materials for Week ${week} downloaded!`);
+            },
+            
+            downloadPdfFile: function(courseId, week, filePath) {
+                const a = document.createElement('a');
+                a.href = filePath;
+                a.download = `${courseId}-week-${week}.pdf`;
+                a.target = '_blank';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                this.showNotification(`PDF study materials for Week ${week} downloaded!`);
+            },
+            
+            downloadGenericFile: function(courseId, week, filePath) {
+                const a = document.createElement('a');
+                a.href = filePath;
+                a.download = `${courseId}-week-${week}-materials.${filePath.split('.').pop()}`;
+                a.target = '_blank';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                this.showNotification(`Study materials for Week ${week} downloaded!`);
+            },
+            
+            submitAssignment: function(courseId, week, link) {
+                console.log('Submitting assignment:', courseId, week, link);
+                
+                
+                if (!this.currentUser.courseProgress[courseId]) {
+                    console.error('Course progress not found for:', courseId);
+                    return;
+                }
+                
+               
+                this.currentUser.courseProgress[courseId].weeks[week].assignmentSubmitted = true;
+                this.currentUser.courseProgress[courseId].weeks[week].assignmentLink = link;
+                
+               
+                this.saveUserData();
+                
+                 
+                this.renderCourseWeeks(courseId);
+                
+                
+                this.showNotification(`Assignment for Week ${week} submitted successfully!`);
+            },
+            
+            markWeekComplete: function(courseId, week) {
+                console.log('Marking week complete:', courseId, week);
+                
+                 
+                if (!this.currentUser.courseProgress[courseId]) {
+                    console.error('Course progress not found for:', courseId);
+                    return;
+                }
+                
+                
+                this.currentUser.courseProgress[courseId].weeks[week].completed = true;
+                
+                const courseProgress = this.currentUser.courseProgress[courseId];
+                if (week === courseProgress.currentWeek) {
+                    courseProgress.currentWeek = Math.min(4, week + 1);
+                }
+                
+                
+                this.saveUserData();
+                
+                
+                this.renderCourseWeeks(courseId);
+                
+               
+                this.updateQuizLockState();
+                
+                
+                this.showNotification(`Week ${week} marked as complete!`);
+                
+                if (week === 4) {
+                    setTimeout(() => {
+                        this.showNotification('🎉 Congratulations! You have completed this course!');
+                    }, 1000);
+                }
+            },
+            
+            renderProfile: function() {
+                document.getElementById('profile-name').textContent = this.currentUser.username;
+                document.getElementById('profile-email').textContent = this.currentUser.email;
+                
+                const profilePicture = document.getElementById('profile-picture');
+                if (this.currentUser.profilePicture) {
+                    profilePicture.innerHTML = `<img src="${this.currentUser.profilePicture}" alt="Profile Picture">`;
+                } else {
+                    profilePicture.innerHTML = '<i class="fas fa-user"></i>';
+                }
+                profilePicture.innerHTML += '<div class="change-photo" id="change-photo-btn">Change Photo</div>';
+                
+                document.getElementById('change-photo-btn').addEventListener('click', () => {
+                    document.getElementById('profile-picture-input').click();
+                });
+                
+                const container = document.getElementById('profile-courses');
+                container.innerHTML = '';
+                
+                this.currentUser.enrolledCourses.forEach(course => {
+                    const progress = this.calculateCourseProgress(course.id);
+                    
+                    const courseElement = document.createElement('div');
+                    courseElement.className = 'course-progress';
+                    courseElement.innerHTML = `
+                        <div class="course-progress-header">
+                            <span>${course.title}</span>
+                            <span>${progress}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progress}%"></div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(courseElement);
+                });
+            },
+            
+            changeProfilePicture: function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                if (!file.type.match('image.*')) {
+                    this.showNotification('Please select an image file', true);
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    this.currentUser.profilePicture = event.target.result;
+                    this.saveUserData();
+                    this.renderProfile();
+                    this.showNotification('Profile picture updated successfully!');
+                };
+                
+                reader.readAsDataURL(file);
+                e.target.value = '';
+            },
+            
+            editProfile: function() {
+                const newName = prompt('Enter your new name:', this.currentUser.username);
+                if (newName && newName.trim() !== '') {
+                    this.currentUser.username = newName.trim();
+                    this.saveUserData();
+                    this.renderProfile();
+                    this.showNotification('Profile updated successfully!');
+                }
+            },
+            
+             
+            changePassword: function(e) {
+                e.preventDefault();
+                
+                const currentInput = document.getElementById('current-password').value;
+                const newInput = document.getElementById('new-password').value;
+                const confirmInput = document.getElementById('confirm-password').value;
+                
+                const storedPassword = this.currentUser.customPassword;
+                const defaultFull = `${this.currentUser.username}@internbite123`;
+                const defaultRestricted = `${this.currentUser.username}@internbite2026`;
+                
+               
+                const isCurrentValid = storedPassword
+                    ? currentInput === storedPassword
+                    : (currentInput === defaultFull || currentInput === defaultRestricted);
+                
+                if (!isCurrentValid) {
+                    this.showNotification('Current password is incorrect', true);
+                    return;
+                }
+                
+                if (newInput.length < 6) {
+                    this.showNotification('New password must be at least 6 characters', true);
+                    return;
+                }
+                
+                if (newInput !== confirmInput) {
+                    this.showNotification('New passwords do not match', true);
+                    return;
+                }
+                
+                this.currentUser.customPassword = newInput;
+                this.saveUserData();
+                document.getElementById('change-password-form').reset();
+                this.showNotification('Password updated successfully!');
+            },
+            
+             
+            exportData: function() {
+                const dataStr = JSON.stringify(this.currentUser, null, 2);
+                const dataBlob = new Blob([dataStr], {
+                    type: 'application/json'
+                });
+                
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `InternBite-data-${this.currentUser.username}.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+                this.showNotification('Data exported successfully!');
+            },
+            
+            
+            importData: function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const importedData = JSON.parse(event.target.result);
+                        
+                       
+                        if (importedData.username && importedData.enrolledCourses && importedData.courseProgress) {
+                            // Update current user data
+                            const users = JSON.parse(localStorage.getItem('InternBite-users')) || {};
+                            users[this.currentUser.username] = importedData;
+                            localStorage.setItem('InternBite-users', JSON.stringify(users));
+                            
+                            this.currentUser = importedData;
+                            this.renderDashboard();
+                            this.renderProfile();
+                            this.updateQuizLockState();
+                            
+                            this.showNotification('Data imported successfully!');
+                        } else {
+                            this.showNotification('Invalid data file format', true);
+                        }
+                    } catch (error) {
+                        this.showNotification('Error importing data', true);
+                        console.error(error);
+                    }
+                };
+                
+                reader.readAsText(file);
+                e.target.value = ''; 
+            },
+            
+           
+            saveUserData: function() {
+                const users = JSON.parse(localStorage.getItem('InternBite-users')) || {};
+                users[this.currentUser.username] = this.currentUser;
+                localStorage.setItem('InternBite-users', JSON.stringify(users));
+                
+                
+                localStorage.setItem('InternBite-data-update', Date.now().toString());
+            },
+            
+            
+            handleStorageEvent: function(e) {
+                if (e.key === 'InternBite-data-update' && this.currentUser) {
+                    // Reload user data from localStorage
+                    const users = JSON.parse(localStorage.getItem('InternBite-users')) || {};
+                    if (users[this.currentUser.username]) {
+                        this.currentUser = users[this.currentUser.username];
+                        
+                        
+                        if (!document.getElementById('dashboard-page').classList.contains('hidden')) {
+                            this.renderDashboard();
+                        } else if (!document.getElementById('course-page').classList.contains('hidden')) {
+                             
+                            const courseTitle = document.getElementById('course-title').textContent;
+                            const course = this.currentUser.enrolledCourses.find(c => c.title === courseTitle);
+                            if (course) {
+                                this.renderCourseWeeks(course.id);
+                            }
+                        } else if (!document.getElementById('profile-page').classList.contains('hidden')) {
+                            this.renderProfile();
+                        }
+                    }
+                }
+            },
+            
+            
+            showNotification: function(message, isError = false) {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.classList.toggle('error', isError);
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        };
+        
+        function showPage(id) {
+            document.querySelectorAll('.container').forEach(p => {
+                p.classList.add('hidden');
+            });
+
+            document.getElementById(id).classList.remove('hidden');
+        }
+        
+         
+        document.addEventListener('DOMContentLoaded', function() {
+            LMS.init();
+        });
+    </script>
+</body>
+</html>
